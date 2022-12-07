@@ -23,7 +23,7 @@ const Feed: React.FC<Prop> = ({}) => {
           className="tablet:h-[100px] tablet:w-[300px] laptop:h-[230px] laptop:w-[670px] rounded-lg phone:hidden tablet:flex"
           alt=""
         />
-        <span className="phone:my-2 laptop:my-6 self-start text-u_darkblue text-4xl phone:self-center laptop:self-start">
+        <span className="phone:mt-3 tablet:mt-7 self-start text-u_darkblue phone:text-2xl tablet:text-4xl phone:self-center laptop:self-start laptop:ml-5">
           Banks Linked
         </span>
         <div className="grid laptop:grid-flow-col overflow-x-scroll phone:h-[300px] phone:w-[3000px] tablet:h-[300px] tablet:w-[650px] phone:grid-flow-row phone:justify-center laptop:justify-start">

@@ -15,7 +15,7 @@ const Header: React.FC<Prop> = ({}) => {
           className="w-16 ml-3 mt-3"
           alt=""
         />
-        <span className="text-u_darkblue ml-5 laptop:text-5xl phone:text-md">
+        <span className="text-u_darkblue ml-5 laptop:text-5xl tablet:text-2xl phone:text-md">
           ATM Service
         </span>
         <input
@@ -32,7 +32,7 @@ const Header: React.FC<Prop> = ({}) => {
         />
         <img
           src={new URL('../../assets/images/pfp.jpg', import.meta.url).href}
-          className="phone:w-10 laptop:w-16 rounded-full ml-2 mt-3 phone:ml-9"
+          className="phone:w-10 laptop:w-16 rounded-full ml-2 mt-3 phone:mx-12"
           alt=""
         />
       </div>

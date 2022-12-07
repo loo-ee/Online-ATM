@@ -52,10 +52,12 @@ const BankPage: React.FC<Prop> = ({}) => {
         <div className="bg-white phone:w-[280px] laptop:w-[600px] rounded-lg phone:p-2 laptop:p-6 flex flex-row items-center justify-between">
           <div className="flex flex-col">
             <span className="text-u_darkblue phone:text-md laptop:text-2xl">
-              Name: {accountForBank?.name}
+              <span className="text-u_orange">Name: </span>
+              {accountForBank?.name}
             </span>
             <span className="text-u_darkblue phone:text-sm laptop:text-xl">
-              Account Number: {accountForBank?.accountNumber}
+              <span className="text-u_orange">Acc #: </span>
+              {accountForBank?.accountNumber}
             </span>
           </div>
 
