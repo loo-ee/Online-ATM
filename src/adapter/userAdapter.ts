@@ -10,7 +10,7 @@ const api = axios.create({
 
 export const getLoggedInUser = async (): Promise<UserModel | null> => {
   try {
-    const res = await api.get('prev-login');
+    const res = await api.get('prev-login/');
     return res.data;
   } catch (err) {
     return null;

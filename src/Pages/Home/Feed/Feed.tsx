@@ -1,7 +1,6 @@
-import { useContext, useEffect } from 'react';
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { SystemContext } from '../../../contexts/SystemContext';
-import { banks, baseUrl } from '../../../util/systemConfig';
 import BankCard from '../../Bank/BankCard';
 
 interface Prop {}
@@ -27,7 +26,7 @@ const Feed: React.FC<Prop> = ({}) => {
           Banks Linked
         </span>
         <div className="grid laptop:grid-flow-col overflow-x-scroll phone:h-[300px] phone:w-[3000px] tablet:h-[300px] tablet:w-[650px] phone:grid-flow-row phone:justify-center laptop:justify-start">
-          {banks.map((bank) => (
+          {System?.banks.map((bank) => (
             <BankCard bank={bank} key={bank.bankName} />
           ))}
         </div>

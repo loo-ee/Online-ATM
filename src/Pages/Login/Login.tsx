@@ -1,12 +1,14 @@
-import { useContext, useState, useRef, useEffect } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getBanks } from '../../adapter/systemAdapter';
 import {
-  getLoggedInUser,
-  getLinkedAccounts,
   createUser,
-  searchUserEmail,
+  getLinkedAccounts,
+  getLoggedInUser,
   getUser,
+  searchUserEmail,
 } from '../../adapter/userAdapter';
+import { SystemContext } from '../../contexts/SystemContext';
 import { UserContext } from '../../contexts/UserContext';
 import { baseUrl } from '../../util/systemConfig';
 
@@ -14,6 +16,7 @@ interface Prop {}
 
 const Login: React.FC<Prop> = ({}) => {
   const User = useContext(UserContext);
+  const System = useContext(SystemContext);
   const [headerText, setHeaderText] = useState('Login');
   const [authMode, setAuthMode] = useState('login');
   const navigator = useNavigate();
@@ -27,8 +30,20 @@ const Login: React.FC<Prop> = ({}) => {
   const loginBtn = useRef<HTMLButtonElement>(null);
   const registerBtn = useRef<HTMLButtonElement>(null);
 
+  const getBankModels = async () => {
+    const banks = await getBanks();
+
+    if (!banks) {
+      console.log('No bank models found!');
+      return;
+    }
+
+    System?.setBanks(banks);
+  };
+
   useEffect(() => {
     getPreviousUser();
+    getBankModels();
   }, []);
 
   const getPreviousUser = async () => {

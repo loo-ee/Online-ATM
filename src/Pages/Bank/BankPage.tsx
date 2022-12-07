@@ -11,7 +11,6 @@ const BankPage: React.FC<Prop> = ({}) => {
   const System = useContext(SystemContext);
   const User = useContext(UserContext);
 
-  const [mode, setMode] = useState('withdraw');
   const [accountForBank, setAccountForBank] = useState<AccountModel | null>(
     null
   );
