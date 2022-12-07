@@ -10,6 +10,8 @@ export interface SystemContextProp {
   setBankSelected: React.Dispatch<React.SetStateAction<BankModel>>;
   isBankSelected: boolean;
   setIsBankSelected: React.Dispatch<React.SetStateAction<boolean>>;
+  transactionMode: string;
+  setTransactionMode: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const SystemContext = React.createContext<SystemContextProp | null>(
@@ -22,15 +24,18 @@ const SystemContextProvider: React.FC<Prop> = ({ children }) => {
     description: '???',
     thumbnail: '???',
   };
-  const [bankSelected, setBankSelected] = useState<BankModel>(bank);
 
+  const [bankSelected, setBankSelected] = useState<BankModel>(bank);
   const [isBankSelected, setIsBankSelected] = useState(false);
+  const [transactionMode, setTransactionMode] = useState('withdraw');
 
   const System: SystemContextProp = {
     bankSelected: bankSelected,
     setBankSelected: setBankSelected,
     isBankSelected: isBankSelected,
     setIsBankSelected: setIsBankSelected,
+    transactionMode: transactionMode,
+    setTransactionMode: setTransactionMode,
   };
 
   return (

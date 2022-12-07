@@ -2,6 +2,8 @@ import { useContext, useState, useEffect } from 'react';
 import { SystemContext } from '../../contexts/SystemContext';
 import { UserContext, nullAccount } from '../../contexts/UserContext';
 import { AccountModel } from '../../util/systemConfig';
+import ModeSelection from './ModeSelection';
+import Transaction from './Transaction';
 
 interface Prop {}
 
@@ -40,51 +42,45 @@ const BankPage: React.FC<Prop> = ({}) => {
     return <div>Link Account</div>;
   } else if (System?.bankSelected && User) {
     return (
-      <div
-        id="bank-page"
-        className="flex flex-col items-center phone:w-[280px]"
-      >
-        <div>
-          <div className="mb-9 -mt-7">
-            <span className="text-u_darkblue phone:text-lg laptop:text-3xl">
-              Connected to {System?.bankSelected.bankName}
+      <div>
+        <div className="phone:mb-2 laptop:mb-9">
+          <span className="text-u_darkblue phone:text-lg laptop:text-3xl">
+            Connected to {System?.bankSelected.bankName}
+          </span>
+        </div>
+
+        <div className="bg-white phone:w-[280px] laptop:w-[600px] rounded-lg phone:p-2 laptop:p-6 flex flex-row items-center justify-between">
+          <div className="flex flex-col">
+            <span className="text-u_darkblue phone:text-md laptop:text-2xl">
+              Name: {accountForBank?.name}
+            </span>
+            <span className="text-u_darkblue phone:text-sm laptop:text-xl">
+              Account Number: {accountForBank?.accountNumber}
             </span>
           </div>
 
-          <div className="bg-white phone:w-[280px] laptop:w-[600px] rounded-lg phone:p-2 laptop:p-6 flex flex-row items-center justify-between">
-            <div className="flex flex-col">
-              <span className="text-u_darkblue phone:text-md laptop:text-2xl">
-                Name: {accountForBank?.name}
-              </span>
-              <span className="text-u_darkblue phone:text-sm laptop:text-xl">
-                Account Number: {accountForBank?.accountNumber}
-              </span>
-            </div>
-
-            <div className="flex flex-row items-center">
-              <span className="phone:text-xl laptop:text-5xl">
-                {System?.bankSelected.bankName}
-              </span>
-              <img
-                src={
-                  new URL(
-                    `../../../assets/${System?.bankSelected.thumbnail}`,
-                    import.meta.url
-                  ).href
-                }
-                className="phone:w-10 phone:h-10 laptop:w-20 laptop:h-20 rounded ml-5"
-                alt=""
-              />
-            </div>
+          <div className="flex flex-row items-center">
+            <span className="phone:text-xl laptop:text-5xl">
+              {System?.bankSelected.bankName}
+            </span>
+            <img
+              src={
+                new URL(
+                  `../../assets/images/${System?.bankSelected.thumbnail}`,
+                  import.meta.url
+                ).href
+              }
+              className="phone:w-10 phone:h-10 laptop:w-20 laptop:h-20 rounded ml-5"
+              alt=""
+            />
           </div>
+        </div>
 
-          <div className="flex flex-row justify-between mt-10">
-            {/* <ModeSelection onEventClick={setMode} />
-            <Transaction
-              mode={mode}
-              account={accountForBank ? accountForBank : nullAccount}
-            /> */}
-          </div>
+        <div className="flex flex-row justify-between mt-10">
+          <ModeSelection />
+          <Transaction
+            account={accountForBank ? accountForBank : nullAccount}
+          />
         </div>
       </div>
     );
