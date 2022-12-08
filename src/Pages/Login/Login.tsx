@@ -124,6 +124,7 @@ const Login: React.FC<Prop> = ({}) => {
         avatar: null,
         password: password1Input,
         last_login: null,
+        isAdmin: false,
       });
 
       usernameRegister.current!.value = '';

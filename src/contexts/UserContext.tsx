@@ -21,6 +21,7 @@ const UserContextProvider: React.FC<Prop> = ({ children }) => {
     avatar: null,
     lastLogin: null,
     isLoggedIn: false,
+    isAdmin: false,
     accounts: [],
   };
 

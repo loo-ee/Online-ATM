@@ -14,6 +14,7 @@ export type UserModel = {
   lastLogin: string | null;
   isLoggedIn: boolean;
   username: string;
+  isAdmin: boolean;
 };
 
 export type AccountModel = {
