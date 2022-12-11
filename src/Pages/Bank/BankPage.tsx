@@ -67,7 +67,10 @@ const BankPage: React.FC<Prop> = ({}) => {
             <img
               src={
                 new URL(
-                  `../../assets/images/${System?.bankSelected.thumbnail}`,
+                  `../../assets/images/${System?.bankSelected.thumbnail.slice(
+                    1,
+                    System.bankSelected.thumbnail.length
+                  )}`,
                   import.meta.url
                 ).href
               }

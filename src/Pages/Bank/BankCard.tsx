@@ -30,8 +30,13 @@ const BankCard: React.FC<Prop> = ({ bank }) => {
         </div>
         <img
           src={
-            new URL(`../../assets/images/${bank.thumbnail}`, import.meta.url)
-              .href
+            new URL(
+              `../../assets/images/${bank.thumbnail.slice(
+                1,
+                bank.thumbnail.length
+              )}`,
+              import.meta.url
+            ).href
           }
           className="w-24 h-24 rounded mb-4 ml-3"
           alt=""
