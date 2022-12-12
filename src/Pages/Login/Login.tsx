@@ -7,10 +7,11 @@ import {
   getLoggedInUser,
   getUser,
   searchUserEmail,
+  updateLoginStatus,
 } from '../../adapter/userAdapter';
 import { SystemContext } from '../../contexts/SystemContext';
 import { UserContext } from '../../contexts/UserContext';
-import { baseUrl } from '../../util/systemConfig';
+import { baseUrl, UserModel } from '../../util/systemConfig';
 
 interface Prop {}
 
@@ -76,7 +77,6 @@ const Login: React.FC<Prop> = ({}) => {
 
       const emailInput = emailField.current!.value;
       const passwordInput = passwordField.current!.value;
-
       const user = await searchUser(emailInput, passwordInput);
 
       if (!user) {
@@ -97,6 +97,7 @@ const Login: React.FC<Prop> = ({}) => {
         accounts: linkedAccounts,
       });
 
+      updateLoginStatus(user.email, user);
       navigator(baseUrl + 'usr/feed/');
     });
 
