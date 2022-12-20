@@ -73,7 +73,7 @@ export const getLinkedAccounts = async (
 
 export const updateLoginStatus = async (email: string, user: {}) => {
   try {
-    const res = await api.put(`update-user/${email}/`, user);
+    await api.put(`update-user/${email}/`, user);
   } catch (err) {
     console.log(err);
   }

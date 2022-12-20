@@ -25,6 +25,12 @@ export type AccountModel = {
   balance: number;
 };
 
+export type AccountRequest = {
+  username: string;
+  user: string;
+  bank: string;
+};
+
 export const banks: BankModel[] = [
   {
     bankName: 'BPI',

@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { UserContext } from './contexts/UserContext';
+import AdminFeed from './Pages/Admin/AdminFeed';
 import BankPage from './Pages/Bank/BankPage';
 import Feed from './Pages/Home/Feed/Feed';
 import HomePage from './Pages/Home/HomePage';
@@ -25,6 +26,7 @@ function App() {
             }
           >
             <Route path="usr/feed/" element={<Feed />}></Route>
+            <Route path="admin/" element={<AdminFeed />}></Route>
             <Route path="vendor/" element={<BankPage />}></Route>
           </Route>
           <Route path={baseUrl + 'login/'} element={<Login />} />

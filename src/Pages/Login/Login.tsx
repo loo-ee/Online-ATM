@@ -62,7 +62,7 @@ const Login: React.FC<Prop> = ({}) => {
       // TODO: Add greeting component
 
       if (user.isAdmin) {
-        console.log('add admin');
+        navigator(baseUrl + 'admin/');
       } else {
         navigator(baseUrl + 'usr/feed/');
       }
