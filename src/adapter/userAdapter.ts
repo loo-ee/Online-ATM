@@ -8,14 +8,6 @@ const api = axios.create({
   },
 });
 
-const authApi = axios.create({
-  baseURL: 'http://127.0.0.1:8000/',
-  headers: {
-    Authorization:
-      'Token 265a1dd215cc3fd9304948b86ed3ad18b8cef03222f673c50ce91ddea13bab96',
-  },
-});
-
 export const getLoggedInUser = async (): Promise<UserModel | null> => {
   try {
     const res = await api.get('prev-login/');
@@ -94,13 +86,32 @@ export const login = async (username: string, password: string) => {
       password: password,
     });
     const foundUser = await getUser(username, password);
-    return foundUser;
+    const accounts = await getLinkedAccounts(username);
+
+    if (!foundUser || !accounts) return null;
+
+    const newUser: UserModel = {
+      ...foundUser,
+      accounts: accounts,
+    };
+
+    localStorage.setItem('token', res.data.token);
+    return newUser;
   } catch (err) {
     console.log('dumbass');
   }
 };
 
-export const auth = async () => {
+export const validateSession = async () => {
+  const token = localStorage.getItem('token');
+  const authApi = axios.create({
+    baseURL: 'http://127.0.0.1:8000/',
+    headers: {
+      // TODO: make tokens dynamic
+      Authorization: `Token ${token}`,
+    },
+  });
+
   try {
     const res = await authApi.get('validate/');
     return res.data;

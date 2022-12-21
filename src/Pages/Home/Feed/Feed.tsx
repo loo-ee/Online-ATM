@@ -8,13 +8,10 @@ interface Prop {}
 
 const Feed: React.FC<Prop> = ({}) => {
   const System = useContext(SystemContext);
-  const User = useContext(UserContext);
-  const navigator = useNavigate();
 
   return (
     <div className="flex flex-col tablet:w-[300px] laptop:w-[500px] phone:w-[100px] items-center">
       <div className="flex flex-col items-center">
-        <div>{User?.user.username}</div>
         <img
           src={
             new URL(

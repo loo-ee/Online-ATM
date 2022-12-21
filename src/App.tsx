@@ -7,7 +7,7 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import { getBanks } from './adapter/systemAdapter';
-import { auth, getLinkedAccounts } from './adapter/userAdapter';
+import { validateSession, getLinkedAccounts } from './adapter/userAdapter';
 import { SystemContext } from './contexts/SystemContext';
 import { UserContext } from './contexts/UserContext';
 import AdminFeed from './Pages/Admin/AdminFeed';

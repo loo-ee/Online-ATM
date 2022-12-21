@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getBanks } from '../../adapter/systemAdapter';
 import {
-  auth,
+  validateSession,
   createUser,
   getLinkedAccounts,
   getLoggedInUser,
@@ -33,30 +33,8 @@ const Login: React.FC<Prop> = ({}) => {
   const loginBtn = useRef<HTMLButtonElement>(null);
   const registerBtn = useRef<HTMLButtonElement>(null);
 
-  // const getPreviousUser = async () => {
-  //   const user = await getLoggedInUser();
-  //   console.log(user);
-
-  //   if (user) {
-  //     const linkedAccounts = await getLinkedAccounts(user.email);
-
-  //     User?.setUser({
-  //       ...user,
-  //       accounts: linkedAccounts,
-  //     });
-
-  //     // TODO: Add greeting component
-
-  //     if (user.isAdmin) {
-  //       navigator(baseUrl + 'admin/');
-  //     } else {
-  //       navigator(baseUrl + 'usr/feed/');
-  //     }
-  //   }
-  // };
-
   const checkPreviousSession = async () => {
-    const authenticatedUser = await auth();
+    const authenticatedUser = await validateSession();
 
     if (authenticatedUser) {
       const linkedAccounts = await getLinkedAccounts(authenticatedUser.email);

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { auth, getLinkedAccounts } from '../adapter/userAdapter';
+import { validateSession, getLinkedAccounts } from '../adapter/userAdapter';
 import { AccountModel, UserModel } from '../util/systemConfig';
 
 interface Prop {
