@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { auth, getLinkedAccounts } from '../adapter/userAdapter';
 import { AccountModel, UserModel } from '../util/systemConfig';
 
 interface Prop {
@@ -28,10 +29,6 @@ const UserContextProvider: React.FC<Prop> = ({ children }) => {
   const [userAccount, setUserAccount] = useState<UserModel>(userAcc);
 
   const isAdmin = useRef(false);
-
-  // useEffect(() => {
-  //   setUserAccount(userAcc);
-  // }, []);
 
   const User: UserContextProp = {
     user: userAccount,

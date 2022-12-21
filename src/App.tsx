@@ -1,5 +1,14 @@
-import { useContext } from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+} from 'react-router-dom';
+import { getBanks } from './adapter/systemAdapter';
+import { auth, getLinkedAccounts } from './adapter/userAdapter';
+import { SystemContext } from './contexts/SystemContext';
 import { UserContext } from './contexts/UserContext';
 import AdminFeed from './Pages/Admin/AdminFeed';
 import BankPage from './Pages/Bank/BankPage';
@@ -10,6 +19,22 @@ import { baseUrl } from './util/systemConfig';
 
 function App() {
   const User = useContext(UserContext);
+  const System = useContext(SystemContext);
+
+  const getBankModels = async () => {
+    const banks = await getBanks();
+
+    if (!banks) {
+      console.log('No bank models found!');
+      return;
+    }
+
+    System?.setBanks(banks);
+  };
+
+  useEffect(() => {
+    getBankModels();
+  }, []);
 
   return (
     <div id="App" className="flex flex-col mb-10 items-center">
@@ -18,7 +43,7 @@ function App() {
           <Route
             path={baseUrl}
             element={
-              User?.user.username != '???' ? (
+              User!.user.username != '???' ? (
                 <HomePage />
               ) : (
                 <Navigate to={baseUrl + 'login/'} />

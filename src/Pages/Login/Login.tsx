@@ -2,15 +2,17 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getBanks } from '../../adapter/systemAdapter';
 import {
+  auth,
   createUser,
   getLinkedAccounts,
   getLoggedInUser,
   getUser,
+  login,
   searchUserEmail,
   updateLoginStatus,
 } from '../../adapter/userAdapter';
 import { SystemContext } from '../../contexts/SystemContext';
-import { UserContext } from '../../contexts/UserContext';
+import { nullAccount, UserContext } from '../../contexts/UserContext';
 import { baseUrl, UserModel } from '../../util/systemConfig';
 
 interface Prop {}
@@ -31,43 +33,50 @@ const Login: React.FC<Prop> = ({}) => {
   const loginBtn = useRef<HTMLButtonElement>(null);
   const registerBtn = useRef<HTMLButtonElement>(null);
 
-  const getBankModels = async () => {
-    const banks = await getBanks();
+  // const getPreviousUser = async () => {
+  //   const user = await getLoggedInUser();
+  //   console.log(user);
 
-    if (!banks) {
-      console.log('No bank models found!');
-      return;
+  //   if (user) {
+  //     const linkedAccounts = await getLinkedAccounts(user.email);
+
+  //     User?.setUser({
+  //       ...user,
+  //       accounts: linkedAccounts,
+  //     });
+
+  //     // TODO: Add greeting component
+
+  //     if (user.isAdmin) {
+  //       navigator(baseUrl + 'admin/');
+  //     } else {
+  //       navigator(baseUrl + 'usr/feed/');
+  //     }
+  //   }
+  // };
+
+  const checkPreviousSession = async () => {
+    const authenticatedUser = await auth();
+
+    if (authenticatedUser) {
+      const linkedAccounts = await getLinkedAccounts(authenticatedUser.email);
+
+      User!.setUser({
+        ...authenticatedUser,
+        accounts: linkedAccounts,
+      });
     }
-
-    System?.setBanks(banks);
   };
 
   useEffect(() => {
-    getPreviousUser();
-    getBankModels();
-  }, []);
+    checkPreviousSession();
+    console.log(User?.user);
 
-  const getPreviousUser = async () => {
-    const user = await getLoggedInUser();
-    console.log(user);
-
-    if (user) {
-      const linkedAccounts = await getLinkedAccounts(user.email);
-
-      User?.setUser({
-        ...user,
-        accounts: linkedAccounts,
-      });
-
-      // TODO: Add greeting component
-
-      if (user.isAdmin) {
-        navigator(baseUrl + 'admin/');
-      } else {
-        navigator(baseUrl + 'usr/feed/');
-      }
+    if (User?.user.username != '???') {
+      navigator(baseUrl + 'usr/feed/');
+      console.log(User!.user.accounts);
     }
-  };
+  }, [User?.user.accounts]);
 
   setTimeout(() => {
     loginBtn.current?.addEventListener('click', async (e) => {
@@ -77,7 +86,7 @@ const Login: React.FC<Prop> = ({}) => {
 
       const emailInput = emailField.current!.value;
       const passwordInput = passwordField.current!.value;
-      const user = await searchUser(emailInput, passwordInput);
+      const user = await login(emailInput, passwordInput);
 
       if (!user) {
         emailField.current!.value = '';
@@ -90,14 +99,11 @@ const Login: React.FC<Prop> = ({}) => {
 
       const linkedAccounts = await getLinkedAccounts(emailInput);
 
-      user.isLoggedIn = true;
-
       User?.setUser({
         ...user,
         accounts: linkedAccounts,
       });
 
-      updateLoginStatus(user.email, user);
       navigator(baseUrl + 'usr/feed/');
     });
 

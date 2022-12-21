@@ -11,7 +11,6 @@ const api = axios.create({
 export const getBanks = async (): Promise<BankModel[] | null> => {
   try {
     const res = await api.get('banks/');
-    console.log(res.data);
     return res.data;
   } catch (err) {
     return null;

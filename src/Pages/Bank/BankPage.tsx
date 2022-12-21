@@ -16,7 +16,7 @@ const BankPage: React.FC<Prop> = ({}) => {
   );
 
   const checkWhichAccount = () => {
-    if (!User || !System?.bankSelected) {
+    if (!User?.user || !System?.bankSelected) {
       console.log('err');
       return;
     }

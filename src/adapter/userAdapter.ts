@@ -8,6 +8,14 @@ const api = axios.create({
   },
 });
 
+const authApi = axios.create({
+  baseURL: 'http://127.0.0.1:8000/',
+  headers: {
+    Authorization:
+      'Token 265a1dd215cc3fd9304948b86ed3ad18b8cef03222f673c50ce91ddea13bab96',
+  },
+});
+
 export const getLoggedInUser = async (): Promise<UserModel | null> => {
   try {
     const res = await api.get('prev-login/');
@@ -49,7 +57,7 @@ export const searchUserEmail = async (email: string) => {
 
 export const createUser = async (user: {}) => {
   try {
-    await api.post('create-user/', user);
+    await api.post('register/', user);
   } catch (err) {
     return;
   }
@@ -76,5 +84,28 @@ export const updateLoginStatus = async (email: string, user: {}) => {
     await api.put(`update-user/${email}/`, user);
   } catch (err) {
     console.log(err);
+  }
+};
+
+export const login = async (username: string, password: string) => {
+  try {
+    const res = await api.post('login/', {
+      username: username,
+      password: password,
+    });
+    const foundUser = await getUser(username, password);
+    return foundUser;
+  } catch (err) {
+    console.log('dumbass');
+  }
+};
+
+export const auth = async () => {
+  try {
+    const res = await authApi.get('validate/');
+    return res.data;
+  } catch (err) {
+    console.log('dumbaass');
+    return false;
   }
 };
