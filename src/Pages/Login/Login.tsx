@@ -83,7 +83,8 @@ const Login: React.FC<Prop> = ({}) => {
         accounts: linkedAccounts,
       });
 
-      navigator(baseUrl + 'usr/feed/');
+      if (user.isAdmin) navigator(baseUrl + 'admin/');
+      else navigator(baseUrl + 'usr/feed/');
     });
 
     registerBtn.current?.addEventListener('click', async (e) => {
