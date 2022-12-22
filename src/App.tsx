@@ -10,6 +10,7 @@ import { getBanks } from './adapter/systemAdapter';
 import { validateSession, getLinkedAccounts } from './adapter/userAdapter';
 import { SystemContext } from './contexts/SystemContext';
 import { UserContext } from './contexts/UserContext';
+import AccountCreationPage from './Pages/Admin/AccountCreationPage';
 import AdminFeed from './Pages/Admin/AdminFeed';
 import BankPage from './Pages/Bank/BankPage';
 import Feed from './Pages/Home/Feed/Feed';
@@ -51,7 +52,12 @@ function App() {
             }
           >
             <Route path="usr/feed/" element={<Feed />}></Route>
-            <Route path="admin/" element={<AdminFeed />}></Route>
+            <Route path="admin/" element={<AdminFeed />}>
+              <Route
+                path="account-creation"
+                element={<AccountCreationPage />}
+              ></Route>
+            </Route>
             <Route path="vendor/" element={<BankPage />}></Route>
           </Route>
           <Route path={baseUrl + 'login/'} element={<Login />} />
