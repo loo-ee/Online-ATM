@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { AccountModel, UserModel } from '../util/systemConfig';
+import {
+  AccountModel,
+  ChangePinRequest,
+  UserModel,
+} from '../util/systemConfig';
 
 const api = axios.create({
   baseURL: 'http://127.0.0.1:8000/',
@@ -130,5 +134,25 @@ export const updateAccount = async (account: AccountModel) => {
     return res.data;
   } catch (err) {
     return null;
+  }
+};
+
+export const findAccount = async (accountNumber: number) => {
+  try {
+    const res = await api.get(`account/${accountNumber}/`);
+    console.log(res.data);
+    return res.data;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const createChangePinRequest = async (request: ChangePinRequest) => {
+  try {
+    const res = await api.post('pin-request/', request);
+    console.log(res.data);
+    return res.data;
+  } catch (error) {
+    console.log(error);
   }
 };

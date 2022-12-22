@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { updateAccount } from '../../adapter/userAdapter';
+import { findAccount, updateAccount } from '../../adapter/userAdapter';
 import { SystemContext } from '../../contexts/SystemContext';
 import { UserContext } from '../../contexts/UserContext';
 import NumPad from '../../util/NumPad';
@@ -24,9 +24,35 @@ const Transaction: React.FC<Prop> = ({ account }) => {
     null
   );
 
-  const withdraw = (deduction: number) => {
+  const withdraw = async (deduction: number) => {
     account.balance -= deduction;
-    updateAccount(account);
+    await updateAccount(account);
+  };
+
+  const validateAccount = async (accountNumber: number) => {
+    const foundAccount: AccountModel = await findAccount(accountNumber);
+
+    if (!foundAccount) {
+      console.log('Account to receive not found');
+      return;
+    }
+
+    if (foundAccount.bank != account.bank) {
+      console.log('Different banks, not authorized to transfer');
+      return;
+    }
+
+    setAccountToReceive(foundAccount);
+    setIsAccountFound(true);
+  };
+
+  const sendMoney = async (amount: number) => {
+    if (!accountToReceive) return;
+
+    accountToReceive.balance += amount;
+    await updateAccount(accountToReceive);
+    await withdraw(amount);
+    console.log('Transfer success');
   };
 
   if (System?.transactionMode == 'withdraw') {
@@ -68,12 +94,12 @@ const Transaction: React.FC<Prop> = ({ account }) => {
         {isAccountFound ? (
           <>
             <BankPageHeader headerText="Input amount" />
-            <NumPad mainOperation={setAmountToTransfer} />
+            <NumPad mainOperation={sendMoney} />
           </>
         ) : (
           <>
             <BankPageHeader headerText="Find account number" />
-            <NumPad mainOperation={setAccountToFind} />
+            <NumPad mainOperation={validateAccount} />
           </>
         )}
       </div>

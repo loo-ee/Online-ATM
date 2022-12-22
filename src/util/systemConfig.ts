@@ -30,6 +30,13 @@ export type AccountRequest = {
   bank: string;
 };
 
+export type ChangePinRequest = {
+  accountNumber: number;
+  newPin: number;
+  title: string;
+  body: string;
+};
+
 export const banks: BankModel[] = [
   {
     bankName: 'BPI',

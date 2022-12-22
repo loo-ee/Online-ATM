@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { createChangePinRequest } from '../../adapter/userAdapter';
 import NumPad from '../../util/NumPad';
-import { AccountModel } from '../../util/systemConfig';
+import { AccountModel, ChangePinRequest } from '../../util/systemConfig';
 import BankPageHeader from './BankgPageHeader';
 
 interface Prop {
@@ -20,11 +21,18 @@ const PasswordChange: React.FC<Prop> = ({ account }) => {
     } else setHeaderText("Pins don't match!");
   };
 
-  const changePin = (pin: number) => {
+  const changePin = async (pin: number) => {
     if (!account) return;
 
-    account.pin = pin;
-    setHeaderText('Pin was successfully changed!');
+    const request: ChangePinRequest = {
+      accountNumber: account.accountNumber,
+      newPin: pin,
+      title: 'Change pin UwU',
+      body: 'Please sir UwUUUUUUUUU',
+    };
+
+    await createChangePinRequest(request);
+    setHeaderText('Pin change request submitted to admin');
   };
 
   return (
