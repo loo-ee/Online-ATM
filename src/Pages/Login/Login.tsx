@@ -51,6 +51,10 @@ const Login: React.FC<Prop> = ({}) => {
     console.log(User?.user);
 
     if (User?.user.username != '???') {
+      if (User?.user.isAdmin) {
+        navigator(baseUrl + 'admin');
+        return;
+      }
       navigator(baseUrl + 'usr/feed/');
       console.log(User!.user.accounts);
     }

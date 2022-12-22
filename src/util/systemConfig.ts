@@ -12,7 +12,6 @@ export type UserModel = {
   accounts: AccountModel[];
   avatar: string | null;
   lastLogin: string | null;
-  isLoggedIn: boolean;
   username: string;
   isAdmin: boolean;
 };
