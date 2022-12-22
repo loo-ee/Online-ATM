@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react';
 import { SystemContext } from '../../contexts/SystemContext';
-import { UserContext } from '../../contexts/UserContext';
 import NumPad from '../../util/NumPad';
 import { AccountModel } from '../../util/systemConfig';
 import BankPageHeader from './BankgPageHeader';

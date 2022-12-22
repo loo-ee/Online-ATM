@@ -1,19 +1,16 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getBanks } from '../../adapter/systemAdapter';
 import {
-  validateSession,
   createUser,
   getLinkedAccounts,
-  getLoggedInUser,
   getUser,
   login,
   searchUserEmail,
-  updateLoginStatus,
+  validateSession,
 } from '../../adapter/userAdapter';
 import { SystemContext } from '../../contexts/SystemContext';
-import { nullAccount, UserContext } from '../../contexts/UserContext';
-import { baseUrl, UserModel } from '../../util/systemConfig';
+import { UserContext } from '../../contexts/UserContext';
+import { baseUrl } from '../../util/systemConfig';
 
 interface Prop {}
 

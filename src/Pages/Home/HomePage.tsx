@@ -1,14 +1,9 @@
-import { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
-import { UserContext } from '../../contexts/UserContext';
-import Feed from './Feed/Feed';
 import Header from './Header';
 
 interface Prop {}
 
 const HomePage: React.FC<Prop> = ({}) => {
-  const User = useContext(UserContext);
-
   return (
     <>
       <Header />
