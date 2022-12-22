@@ -1,23 +1,36 @@
 import React, { useState } from 'react';
-import { AccountRequest } from '../util/systemConfig';
+import { AccountRequest, ChangePinRequest } from '../util/systemConfig';
 
 interface Prop {
   children: React.ReactNode;
 }
 
 export interface AdminContextProp {
-  requests: AccountRequest[];
-  setRequests: React.Dispatch<React.SetStateAction<AccountRequest[]>>;
+  accountCreationRequests: AccountRequest[];
+  setAccountCreationRequests: React.Dispatch<
+    React.SetStateAction<AccountRequest[]>
+  >;
+  changePinRequests: ChangePinRequest[];
+  setChangePinRequests: React.Dispatch<
+    React.SetStateAction<ChangePinRequest[]>
+  >;
 }
 
 export const AdminContext = React.createContext<AdminContextProp | null>(null);
 
 const AdminContextProvider: React.FC<Prop> = ({ children }) => {
-  const [requests, setRequests] = useState<AccountRequest[]>([]);
+  const [accountCreationRequests, setAccountCreationRequests] = useState<
+    AccountRequest[]
+  >([]);
+  const [changePinRequests, setChangePinRequests] = useState<
+    ChangePinRequest[]
+  >([]);
 
   const Admin: AdminContextProp = {
-    requests: requests,
-    setRequests: setRequests,
+    accountCreationRequests: accountCreationRequests,
+    setAccountCreationRequests: setAccountCreationRequests,
+    changePinRequests: changePinRequests,
+    setChangePinRequests: setChangePinRequests,
   };
 
   return (

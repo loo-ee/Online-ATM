@@ -12,7 +12,7 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
       <span className="text-3xl">Requests</span>
 
       <div className="mt-5">
-        {Admin?.requests.map((req) => (
+        {Admin?.accountCreationRequests.map((req) => (
           <RequestCard key={req.username} requestBody={req} />
         ))}
       </div>

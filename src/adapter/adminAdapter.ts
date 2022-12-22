@@ -16,3 +16,13 @@ export const getAccountRequests = async (): Promise<AccountRequest[]> => {
     return [];
   }
 };
+
+export const getPinChangeRequests = async () => {
+  try {
+    const res = await api.get('change-pin-requests/');
+    console.log(res.data);
+    return res.data;
+  } catch (error) {
+    return [];
+  }
+};

@@ -1,6 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { getAccountRequests } from '../../adapter/adminAdapter';
+import {
+  getAccountRequests,
+  getPinChangeRequests,
+} from '../../adapter/adminAdapter';
 import { AdminContext } from '../../contexts/AdminContext';
 import { AccountRequest, baseUrl } from '../../util/systemConfig';
 
@@ -13,6 +16,7 @@ const AdminFeed: React.FC<Prop> = ({}) => {
 
   useEffect(() => {
     fetchAccountRequests();
+    fetchChangePinRequests();
   }, []);
 
   useEffect(() => {
@@ -21,7 +25,12 @@ const AdminFeed: React.FC<Prop> = ({}) => {
 
   const fetchAccountRequests = async () => {
     const requests = await getAccountRequests();
-    Admin?.setRequests(requests);
+    Admin?.setAccountCreationRequests(requests);
+  };
+
+  const fetchChangePinRequests = async () => {
+    const requests = await getPinChangeRequests();
+    Admin?.setChangePinRequests(requests);
   };
 
   return (
