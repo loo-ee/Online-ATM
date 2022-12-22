@@ -119,3 +119,16 @@ export const validateSession = async () => {
     return false;
   }
 };
+
+export const updateAccount = async (account: AccountModel) => {
+  try {
+    const res = await api.put(
+      `update-account/${account.accountNumber}/`,
+      account
+    );
+
+    return res.data;
+  } catch (err) {
+    return null;
+  }
+};

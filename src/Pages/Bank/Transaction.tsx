@@ -1,5 +1,7 @@
 import { useContext, useState } from 'react';
+import { updateAccount } from '../../adapter/userAdapter';
 import { SystemContext } from '../../contexts/SystemContext';
+import { UserContext } from '../../contexts/UserContext';
 import NumPad from '../../util/NumPad';
 import { AccountModel } from '../../util/systemConfig';
 import BankPageHeader from './BankgPageHeader';
@@ -11,6 +13,7 @@ interface Prop {
 
 const Transaction: React.FC<Prop> = ({ account }) => {
   const System = useContext(SystemContext);
+  const User = useContext(UserContext);
 
   const [finalAmount, setFinalAmount] = useState(0);
   const [isAccountFound, setIsAccountFound] = useState(false);
@@ -21,11 +24,16 @@ const Transaction: React.FC<Prop> = ({ account }) => {
     null
   );
 
+  const withdraw = (deduction: number) => {
+    account.balance -= deduction;
+    updateAccount(account);
+  };
+
   if (System?.transactionMode == 'withdraw') {
     return (
       <div className="flex flex-col items-center">
         <BankPageHeader headerText="Input amount to withdraw" />
-        <NumPad mainOperation={setFinalAmount} />
+        <NumPad mainOperation={withdraw} />
       </div>
     );
   } else if (System?.transactionMode == 'balance') {
