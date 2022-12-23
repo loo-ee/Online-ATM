@@ -37,7 +37,7 @@ export type ChangePinRequest = {
   body: string;
 };
 
-export type Message = {
+export type MessageModel = {
   sender: string;
   receiver: string;
   title: string;

@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   AccountModel,
   ChangePinRequest,
-  Message,
+  MessageModel,
   UserModel,
 } from '../util/systemConfig';
 
@@ -154,7 +154,7 @@ export const createChangePinRequest = async (request: ChangePinRequest) => {
   }
 };
 
-export const createMessage = async (message: Message) => {
+export const createMessage = async (message: MessageModel) => {
   try {
     const res = await api.post('create-message/', message);
 
