@@ -6,6 +6,7 @@ import {
 } from '../../adapter/userAdapter';
 import { SystemContext } from '../../contexts/SystemContext';
 import { UserContext } from '../../contexts/UserContext';
+import { Message } from '../../util/Message';
 import NumPad from '../../util/NumPad';
 import { AccountModel } from '../../util/systemConfig';
 import BankPageHeader from './BankgPageHeader';
@@ -29,11 +30,6 @@ const Transaction: React.FC<Prop> = ({ account }) => {
   );
   const [isReadyForTransfer, setIsReadyForTransfer] = useState(false);
   const messageField = useRef<HTMLInputElement>(null);
-
-  const bgColor = {
-    BDO: 'bg-blue-900',
-    BPI: 'bg-red-900',
-  };
 
   const withdraw = async (deduction: number) => {
     account.balance -= deduction;
@@ -125,38 +121,12 @@ const Transaction: React.FC<Prop> = ({ account }) => {
         {isAccountFound ? (
           <>
             {isReadyForTransfer && (
-              <div
-                className={
-                  'absolute text-white phone:w-[150px] tablet:w-[210px] laptop:w-[300px] p-5 rounded-md self-center flex flex-col items-center ' +
-                  bgColor[account.bank as keyof typeof bgColor]
-                }
-              >
-                <span className="phone:mb-3 laptop:mb-7 phone:text-md tablet:text-xl laptop:text-3xl">
-                  Enter message
-                </span>
-                <input
-                  ref={messageField}
-                  type="text"
-                  placeholder="Enter message"
-                  className="phone:p-2 tablet:p-3 rounded phone:w-[110px] tablet:w-[180px] laptop:w-[240px] phone:text-xs tablet:text-md laptop:text-xl text-black"
-                />
-
-                <div className="flex flex-row laptop:justify-evenly phone:justify-between w-full">
-                  <button
-                    className="bg-green-500 phone:p-1 laptop:p-3 rounded mt-5 phone:w-14 tablet:w-28 laptop:w-36 text-white phone:text-sm laptop:text-xl"
-                    onClick={sendMoney}
-                  >
-                    Send
-                  </button>
-
-                  <button
-                    className="bg-red-500 phone:p-2 laptop:p-3 rounded phone:w-10 tablet:w-12 laptop:w-20 mt-5 text-white text-xl phone:text-sm laptop:text-xl"
-                    onClick={() => setIsReadyForTransfer(false)}
-                  >
-                    X
-                  </button>
-                </div>
-              </div>
+              <Message
+                account={account}
+                messageField={messageField}
+                mainOperation={sendMoney}
+                preparatoryOperation={setIsReadyForTransfer}
+              />
             )}
 
             <BankPageHeader headerText="Input amount" />
