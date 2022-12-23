@@ -37,6 +37,13 @@ export type ChangePinRequest = {
   body: string;
 };
 
+export type Message = {
+  sender: string;
+  receiver: string;
+  title: string;
+  body: string;
+};
+
 export const banks: BankModel[] = [
   {
     bankName: 'BPI',

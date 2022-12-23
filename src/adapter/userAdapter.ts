@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   AccountModel,
   ChangePinRequest,
+  Message,
   UserModel,
 } from '../util/systemConfig';
 
@@ -150,5 +151,15 @@ export const createChangePinRequest = async (request: ChangePinRequest) => {
     return res.data;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const createMessage = async (message: Message) => {
+  try {
+    const res = await api.post('create-message/', message);
+
+    return res.status;
+  } catch (error) {
+    return null;
   }
 };

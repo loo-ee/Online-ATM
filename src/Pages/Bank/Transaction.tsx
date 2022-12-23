@@ -1,5 +1,9 @@
 import { useContext, useRef, useState } from 'react';
-import { findAccount, updateAccount } from '../../adapter/userAdapter';
+import {
+  createMessage,
+  findAccount,
+  updateAccount,
+} from '../../adapter/userAdapter';
 import { SystemContext } from '../../contexts/SystemContext';
 import { UserContext } from '../../contexts/UserContext';
 import NumPad from '../../util/NumPad';
@@ -62,10 +66,22 @@ const Transaction: React.FC<Prop> = ({ account }) => {
   };
 
   const sendMoney = async () => {
-    if (!accountToReceive) return;
+    if (!accountToReceive || !messageField.current) return;
+
+    const messageBody = messageField.current.value;
+    const sender = account.accountNumber;
+    const receiver = accountToReceive.accountNumber;
+    const title = 'Received Credit';
 
     await updateAccount(accountToReceive);
     await withdraw(amountToTransfer);
+    await createMessage({
+      sender: sender.toString(),
+      receiver: receiver.toString(),
+      title: title,
+      body: messageBody,
+    });
+
     console.log('Transfer success');
     setIsReadyForTransfer(false);
   };
