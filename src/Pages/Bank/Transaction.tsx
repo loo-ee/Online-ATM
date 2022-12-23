@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { findAccount, updateAccount } from '../../adapter/userAdapter';
 import { SystemContext } from '../../contexts/SystemContext';
 import { UserContext } from '../../contexts/UserContext';
@@ -23,6 +23,13 @@ const Transaction: React.FC<Prop> = ({ account }) => {
   const [accountToReceive, setAccountToReceive] = useState<AccountModel | null>(
     null
   );
+  const [isReadyForTransfer, setIsReadyForTransfer] = useState(false);
+  const messageField = useRef<HTMLInputElement>(null);
+
+  const bgColor = {
+    BDO: 'bg-blue-900',
+    BPI: 'bg-red-900',
+  };
 
   const withdraw = async (deduction: number) => {
     account.balance -= deduction;
@@ -46,13 +53,21 @@ const Transaction: React.FC<Prop> = ({ account }) => {
     setIsAccountFound(true);
   };
 
-  const sendMoney = async (amount: number) => {
+  const prepareToSendMoney = async (amount: number) => {
     if (!accountToReceive) return;
 
+    setAmountToTransfer(amount);
     accountToReceive.balance += amount;
+    setIsReadyForTransfer(true);
+  };
+
+  const sendMoney = async () => {
+    if (!accountToReceive) return;
+
     await updateAccount(accountToReceive);
-    await withdraw(amount);
+    await withdraw(amountToTransfer);
     console.log('Transfer success');
+    setIsReadyForTransfer(false);
   };
 
   if (System?.transactionMode == 'withdraw') {
@@ -93,8 +108,37 @@ const Transaction: React.FC<Prop> = ({ account }) => {
       <div className="flex flex-col items-center">
         {isAccountFound ? (
           <>
+            {isReadyForTransfer && (
+              <div
+                className={
+                  'absolute text-white w-[300px] p-5 rounded-md self-center flex flex-col items-center ' +
+                  bgColor[account.bank as keyof typeof bgColor]
+                }
+              >
+                <span className="mb-7 text-3xl">Enter message</span>
+                <input
+                  ref={messageField}
+                  type="text"
+                  placeholder="Enter message"
+                  className="p-3 rounded w-[240px] text-black"
+                />
+
+                <div className="flex flex-row justify-evenly w-full">
+                  <button
+                    className="bg-green-500 p-3 rounded mt-5 w-36 text-white text-xl"
+                    onClick={sendMoney}
+                  >
+                    Send
+                  </button>
+
+                  <button className="bg-red-500 p-3 rounded mt-5 text-white text-xl">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
             <BankPageHeader headerText="Input amount" />
-            <NumPad mainOperation={sendMoney} />
+            <NumPad mainOperation={prepareToSendMoney} />
           </>
         ) : (
           <>
