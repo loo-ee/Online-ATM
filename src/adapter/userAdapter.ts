@@ -32,6 +32,7 @@ export const getUser = async (
         password: password,
       },
     });
+
     return res.data;
   } catch (err) {
     return null;
@@ -45,6 +46,7 @@ export const searchUserEmail = async (email: string) => {
         email: email,
       },
     });
+
     return true;
   } catch (err) {
     return false;
@@ -109,6 +111,7 @@ export const validateSession = async () => {
 
   try {
     const res = await authApi.get('validate/');
+
     return res.data;
   } catch (err) {
     console.log('dumbaass');
@@ -133,6 +136,7 @@ export const findAccount = async (accountNumber: number) => {
   try {
     const res = await api.get(`account/${accountNumber}/`);
     console.log(res.data);
+
     return res.data;
   } catch (error) {
     return false;

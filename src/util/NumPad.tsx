@@ -11,6 +11,8 @@ const NumPad: React.FC<Prop> = ({ mainOperation }) => {
   const [strAmount, setStrAmount] = useState('0');
 
   const appendNumber = (num: string): void => {
+    if (strAmount.length == 11) return;
+
     if (strAmount == '0') setStrAmount(num);
     else setStrAmount(strAmount + num);
   };
@@ -45,7 +47,7 @@ const NumPad: React.FC<Prop> = ({ mainOperation }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="border-2 rounded border-u_darkblue my-4 phone:w-[120px] phone:h-12 laptop:w-[233px] laptop:h-12 p-3">
+      <div className="flex flex-col items-end justify-center border-2 rounded border-u_darkblue my-4 phone:w-[120px] phone:h-12 laptop:w-[233px] laptop:h-12 p-3">
         <span className="">{strAmount}</span>
       </div>
 
