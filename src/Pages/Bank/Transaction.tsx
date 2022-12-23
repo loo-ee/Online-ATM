@@ -111,32 +111,38 @@ const Transaction: React.FC<Prop> = ({ account }) => {
             {isReadyForTransfer && (
               <div
                 className={
-                  'absolute text-white w-[300px] p-5 rounded-md self-center flex flex-col items-center ' +
+                  'absolute text-white phone:w-[150px] tablet:w-[210px] laptop:w-[300px] p-5 rounded-md self-center flex flex-col items-center ' +
                   bgColor[account.bank as keyof typeof bgColor]
                 }
               >
-                <span className="mb-7 text-3xl">Enter message</span>
+                <span className="phone:mb-3 laptop:mb-7 phone:text-md tablet:text-xl laptop:text-3xl">
+                  Enter message
+                </span>
                 <input
                   ref={messageField}
                   type="text"
                   placeholder="Enter message"
-                  className="p-3 rounded w-[240px] text-black"
+                  className="phone:p-2 tablet:p-3 rounded phone:w-[110px] tablet:w-[180px] laptop:w-[240px] phone:text-xs tablet:text-md laptop:text-xl text-black"
                 />
 
-                <div className="flex flex-row justify-evenly w-full">
+                <div className="flex flex-row laptop:justify-evenly phone:justify-between w-full">
                   <button
-                    className="bg-green-500 p-3 rounded mt-5 w-36 text-white text-xl"
+                    className="bg-green-500 phone:p-1 laptop:p-3 rounded mt-5 phone:w-14 tablet:w-28 laptop:w-36 text-white phone:text-sm laptop:text-xl"
                     onClick={sendMoney}
                   >
                     Send
                   </button>
 
-                  <button className="bg-red-500 p-3 rounded mt-5 text-white text-xl">
-                    Cancel
+                  <button
+                    className="bg-red-500 phone:p-2 laptop:p-3 rounded phone:w-10 tablet:w-12 laptop:w-20 mt-5 text-white text-xl phone:text-sm laptop:text-xl"
+                    onClick={() => setIsReadyForTransfer(false)}
+                  >
+                    X
                   </button>
                 </div>
               </div>
             )}
+
             <BankPageHeader headerText="Input amount" />
             <NumPad mainOperation={prepareToSendMoney} />
           </>
