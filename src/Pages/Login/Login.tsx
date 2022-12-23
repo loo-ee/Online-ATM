@@ -52,7 +52,7 @@ const Login: React.FC<Prop> = ({}) => {
         navigator(baseUrl + 'admin');
         return;
       }
-      navigator(baseUrl + 'usr/feed/');
+      navigator(baseUrl + 'feed/');
       console.log(User!.user.accounts);
     }
   }, [User?.user.accounts]);
@@ -84,7 +84,7 @@ const Login: React.FC<Prop> = ({}) => {
       });
 
       if (user.isAdmin) navigator(baseUrl + 'admin/');
-      else navigator(baseUrl + 'usr/feed/');
+      else navigator(baseUrl + 'feed/');
     });
 
     registerBtn.current?.addEventListener('click', async (e) => {

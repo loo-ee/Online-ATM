@@ -36,7 +36,7 @@ const RequestCard: React.FC<RequestCardProp> = ({ requestBody }) => {
       <div className="flex flex-col mt-2 phone:text-xs">
         <span>Account #: {requestBody.accountNumber}</span>
         <span>New Pin: {requestBody.newPin}</span>
-        <span>Reason for change:</span>
+        <span className="mt-3">Reason for change:</span>
         <span>{requestBody.body}</span>
       </div>
 

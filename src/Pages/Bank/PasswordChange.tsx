@@ -26,7 +26,7 @@ const PasswordChange: React.FC<Prop> = ({ account }) => {
     } else setHeaderText("Pins don't match!");
   };
 
-  const prepareToChangePin = async (pin: number) => {
+  const prepareToChangePin = (pin: number) => {
     setPin(pin);
     setIsReadyForSubmission(true);
   };
@@ -37,7 +37,7 @@ const PasswordChange: React.FC<Prop> = ({ account }) => {
     const request: ChangePinRequest = {
       accountNumber: account.accountNumber,
       newPin: pin,
-      title: 'Change pin UwU',
+      title: 'Change Pin',
       body: messageField.current.value,
     };
 

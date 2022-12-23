@@ -52,7 +52,7 @@ function App() {
               )
             }
           >
-            <Route path="usr/feed/" element={<Feed />}></Route>
+            <Route path="feed/" element={<Feed />}></Route>
             <Route path="admin/" element={<AdminFeed />}>
               <Route
                 path="account-creation/"
