@@ -141,8 +141,8 @@ export const findAccount = async (accountNumber: number) => {
 
 export const createChangePinRequest = async (request: ChangePinRequest) => {
   try {
-    const res = await api.post('pin-request/', request);
-    console.log(res.data);
+    const res = await api.post('create-change-pin-request/', request);
+
     return res.data;
   } catch (error) {
     console.log(error);
