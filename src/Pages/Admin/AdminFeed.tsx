@@ -20,7 +20,9 @@ const AdminFeed: React.FC<Prop> = ({}) => {
   }, []);
 
   useEffect(() => {
-    navigator(page + '/');
+    setTimeout(() => {
+      navigator(page + '/');
+    }, 500);
   }, [page]);
 
   const fetchAccountRequests = async () => {
