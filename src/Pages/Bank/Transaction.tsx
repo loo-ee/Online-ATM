@@ -122,6 +122,7 @@ const Transaction: React.FC<Prop> = ({ account }) => {
           <>
             {isReadyForTransfer && (
               <Message
+                title="Message to Receiver"
                 account={account}
                 messageField={messageField}
                 mainOperation={sendMoney}

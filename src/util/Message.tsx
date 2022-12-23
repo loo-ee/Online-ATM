@@ -1,6 +1,7 @@
 import { AccountModel } from './systemConfig';
 
 interface Prop {
+  title: string;
   account: AccountModel;
   messageField: React.RefObject<HTMLInputElement>;
   mainOperation: () => void;
@@ -8,6 +9,7 @@ interface Prop {
 }
 
 export const Message: React.FC<Prop> = ({
+  title,
   account,
   messageField,
   mainOperation,
@@ -25,8 +27,8 @@ export const Message: React.FC<Prop> = ({
         bgColor[account.bank as keyof typeof bgColor]
       }
     >
-      <span className="phone:mb-3 laptop:mb-7 phone:text-md tablet:text-xl laptop:text-3xl">
-        Enter message
+      <span className="phone:mb-3 laptop:mb-7 phone:text-md tablet:text-xl laptop:text-3xl text-center">
+        {title}
       </span>
       <input
         ref={messageField}

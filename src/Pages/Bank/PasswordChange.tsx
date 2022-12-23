@@ -54,6 +54,7 @@ const PasswordChange: React.FC<Prop> = ({ account }) => {
         <>
           {isReadyForSubmission && (
             <Message
+              title="Reason for Change"
               account={account}
               messageField={messageField}
               mainOperation={changePin}
