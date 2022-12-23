@@ -12,6 +12,7 @@ import { SystemContext } from './contexts/SystemContext';
 import { UserContext } from './contexts/UserContext';
 import AccountCreationPage from './Pages/Admin/AccountCreationPage';
 import AdminFeed from './Pages/Admin/AdminFeed';
+import ChangePinPage from './Pages/Admin/ChangePinPage';
 import BankPage from './Pages/Bank/BankPage';
 import Feed from './Pages/Home/Feed/Feed';
 import HomePage from './Pages/Home/HomePage';
@@ -54,9 +55,10 @@ function App() {
             <Route path="usr/feed/" element={<Feed />}></Route>
             <Route path="admin/" element={<AdminFeed />}>
               <Route
-                path="account-creation"
+                path="account-creation/"
                 element={<AccountCreationPage />}
               ></Route>
+              <Route path="pin-change" element={<ChangePinPage />}></Route>
             </Route>
             <Route path="vendor/" element={<BankPage />}></Route>
           </Route>

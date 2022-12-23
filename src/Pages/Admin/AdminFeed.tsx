@@ -34,9 +34,9 @@ const AdminFeed: React.FC<Prop> = ({}) => {
   };
 
   return (
-    <div className="flex flex-col self-start border-2 w-full">
+    <div className="flex flex-col items-center self-start border-2 w-full">
       <div className="self-center">
-        <span className="text-4xl">Admin Page</span>
+        <span className="phone:text-2xl laptop:text-4xl">Admin Page</span>
       </div>
 
       <Outlet />
