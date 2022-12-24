@@ -11,6 +11,36 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
   const [isReadyForChange, setIsReadyForChange] = useState(false);
   const [request, setRequest] = useState<AccountRequest>();
   const [colorScheme, setColorScheme] = useState('');
+  const bankField = useRef<HTMLInputElement>(null);
+  const usernameField = useRef<HTMLInputElement>(null);
+  const accountNumberField = useRef<HTMLInputElement>(null);
+  const pinField = useRef<HTMLInputElement>(null);
+  const messageField = useRef<HTMLTextAreaElement>(null);
+
+  // const
+  const changePin = async () => {
+    if (!messageField.current || !request) return;
+
+    const sender = 'admin';
+    const receiver = request.userEmail;
+    const title = 'Account Creation Successful';
+    const body = messageField.current.value;
+
+    const message: MessageModel = {
+      sender: sender,
+      receiver: receiver,
+      title: title,
+      body: body,
+    };
+
+    await createMessage(message);
+    await createAccount(receiver, {
+      bank: request.bank,
+      name: request.username,
+      accountNumber: 1234,
+      pin: 1234,
+    });
+  };
 
   return (
     <div className="mt-10 flex flex-col items-center phone:w-[250px] tablet:w-[500px] laptop:w-[700px]">
@@ -33,6 +63,7 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
                 <div className="flex flex-row items-center my-3 justify-between">
                   <label htmlFor="bank">Bank: </label>
                   <input
+                    ref={bankField}
                     type="text"
                     id="bank"
                     placeholder={request!.bank}
@@ -43,6 +74,7 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
                 <div className="flex flex-row items-center my-3 justify-between">
                   <label htmlFor="username">User name: </label>
                   <input
+                    ref={usernameField}
                     type="text"
                     id="username"
                     placeholder={request!.username}
@@ -53,6 +85,7 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
                 <div className="flex flex-row items-center my-3 justify-between">
                   <label htmlFor="account-number">Account #: </label>
                   <input
+                    ref={accountNumberField}
                     type="number"
                     id="account-number"
                     placeholder="000"
@@ -63,9 +96,23 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
                 <div className="flex flex-row items-center my-3 justify-between">
                   <label htmlFor="pin">Pin: </label>
                   <input
+                    ref={pinField}
                     type="number"
                     id="pin"
                     placeholder="1234"
+                    className="text-black p-2 rounded"
+                  />
+                </div>
+
+                <div className="flex flex-row items-center my-3 justify-between">
+                  <label htmlFor="pin">Message: </label>
+                  <textarea
+                    ref={messageField}
+                    id="message"
+                    cols={18}
+                    placeholder={`${request!.userEmail}, your ${
+                      request?.bank
+                    } account has been created successfully.`}
                     className="text-black p-2 rounded"
                   />
                 </div>
@@ -121,8 +168,6 @@ const RequestCard: React.FC<RequestCardProp> = ({
   setRequestForParent,
   setColorScheme,
 }) => {
-  const messageField = useRef<HTMLInputElement>(null);
-
   const bgColor = {
     BDO: 'bg-blue-900',
     BPI: 'bg-red-900',
@@ -134,34 +179,6 @@ const RequestCard: React.FC<RequestCardProp> = ({
     preparatoryOperation(true);
     setRequestForParent(requestBody);
     setColorScheme(color);
-
-    if (!messageField.current) return;
-
-    messageField.current.value = `${requestBody.userEmail}, your ${requestBody.bank} account has been created successfully.`;
-  };
-
-  const changePin = async () => {
-    if (!messageField.current) return;
-
-    const sender = 'admin';
-    const receiver = requestBody.userEmail;
-    const title = 'Account Creation Successful';
-    const body = messageField.current.value;
-
-    const message: MessageModel = {
-      sender: sender,
-      receiver: receiver,
-      title: title,
-      body: body,
-    };
-
-    await createMessage(message);
-    await createAccount(receiver, {
-      bank: requestBody.bank,
-      name: requestBody.username,
-      accountNumber: 1234,
-      pin: 1234,
-    });
   };
 
   return (
