@@ -50,82 +50,108 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
             Account Creation
           </span>
 
-          <div className="flex flex-row items-center">
+          <div className="flex phone:flex-col justify-center laptop:flex-row items-center">
             <div
               className={
-                'flex flex-col w-[400px] my-5 justify-center text-white self-center rounded p-5  ' +
+                'flex flex-col phone:w-[250px] tablet:w-[300px] laptop:w-[500px] my-5 justify-center text-white self-center rounded p-5  ' +
                 colorScheme
               }
             >
               <span className="">Fill Details</span>
 
               <div className="mt-4">
-                <div className="flex flex-row items-center my-3 justify-between">
-                  <label htmlFor="bank">Bank: </label>
+                <div className="flex flex-row items-center phone:my-1 laptop:my-3 justify-between">
+                  <label
+                    htmlFor="bank"
+                    className="phone:text-sm tablet:text-md laptop:text-lg"
+                  >
+                    Bank:{' '}
+                  </label>
                   <input
                     ref={bankField}
                     type="text"
                     id="bank"
                     placeholder={request!.bank}
-                    className="text-black p-2 rounded"
+                    className="text-black phone:p-1 laptop:p-3 rounded phone:w-32 phone:text-xs laptop:text-lg laptop:w-auto"
                   />
                 </div>
 
                 <div className="flex flex-row items-center my-3 justify-between">
-                  <label htmlFor="username">User name: </label>
+                  <label
+                    htmlFor="username"
+                    className="phone:text-sm tablet:text-md laptop:text-lg"
+                  >
+                    User name:{' '}
+                  </label>
                   <input
                     ref={usernameField}
                     type="text"
                     id="username"
                     placeholder={request!.username}
-                    className="text-black p-2 rounded"
+                    className="text-black phone:p-1 laptop:p-3 rounded phone:w-32 phone:text-xs laptop:text-lg laptop:w-auto"
                   />
                 </div>
 
                 <div className="flex flex-row items-center my-3 justify-between">
-                  <label htmlFor="account-number">Account #: </label>
+                  <label
+                    htmlFor="account-number"
+                    className="phone:text-sm tablet:text-md laptop:text-lg"
+                  >
+                    Account #:{' '}
+                  </label>
                   <input
                     ref={accountNumberField}
                     type="number"
                     id="account-number"
                     placeholder="000"
-                    className="text-black p-2 rounded"
+                    className="text-black phone:p-1 laptop:p-3 rounded phone:w-32 phone:text-xs laptop:text-lg laptop:w-auto"
                   />
                 </div>
 
                 <div className="flex flex-row items-center my-3 justify-between">
-                  <label htmlFor="pin">Pin: </label>
+                  <label
+                    htmlFor="pin"
+                    className="phone:text-sm tablet:text-md laptop:text-lg"
+                  >
+                    Pin:{' '}
+                  </label>
                   <input
                     ref={pinField}
                     type="number"
                     id="pin"
                     placeholder="1234"
-                    className="text-black p-2 rounded"
+                    className="text-black phone:p-1 laptop:p-3 rounded phone:w-32 phone:text-xs laptop:text-lg laptop:w-auto"
                   />
                 </div>
 
                 <div className="flex flex-row items-center my-3 justify-between">
-                  <label htmlFor="pin">Message: </label>
+                  <label
+                    htmlFor="pin"
+                    className="phone:text-sm tablet:text-md laptop:text-lg"
+                  >
+                    Message:{' '}
+                  </label>
                   <textarea
                     ref={messageField}
                     id="message"
-                    cols={18}
+                    cols={20}
+                    rows={5}
                     placeholder={`${request!.userEmail}, your ${
                       request?.bank
                     } account has been created successfully.`}
-                    className="text-black p-2 rounded"
+                    className="text-black phone:p-1 laptop:p-3 rounded phone:w-32 phone:text-xs laptop:text-lg laptop:w-auto"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-col ml-4">
-              <button className="bg-green-500 my-3 p-3 w-44 rounded text-white">
+            <div className="flex phone:flex-row phone:justify-between tablet:justify-around phone:w-full laptop:w-auto laptop:flex-col laptop:ml-4">
+              <button className="bg-green-500 laptop:my-3 phone:p-1 laptop:p-3 phone:w-28 laptop:w-44 rounded text-white">
                 Create
               </button>
 
               <button
-                className="bg-red-600 p-3 w-44 rounded text-white"
+                className="bg-red-600 phone:p-1 laptop:p-3 phone:w-28 laptop:w-44 rounded text-white"
                 onClick={() => setIsReadyForChange(false)}
               >
                 Cancel
