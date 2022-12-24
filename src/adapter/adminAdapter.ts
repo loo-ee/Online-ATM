@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AccountRequest } from '../util/systemConfig';
+import { AccountModel, AccountRequest } from '../util/systemConfig';
 
 const api = axios.create({
   baseURL: 'http://127.0.0.1:8000/',
@@ -14,6 +14,17 @@ export const getAccountRequests = async (): Promise<AccountRequest[]> => {
     return res.data;
   } catch (err) {
     return [];
+  }
+};
+
+export const createAccount = async (userEmail: string, account: {}) => {
+  try {
+    await api.post('create-account/', {
+      userEmail,
+      ...account,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };
 
