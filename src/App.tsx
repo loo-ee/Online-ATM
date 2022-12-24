@@ -53,15 +53,19 @@ function App() {
             }
           >
             <Route path="feed/" element={<Feed />}></Route>
+
             <Route path="admin/" element={<AdminFeed />}>
               <Route
                 path="account-creation/"
                 element={<AccountCreationPage />}
               ></Route>
+
               <Route path="pin-change" element={<ChangePinPage />}></Route>
             </Route>
+
             <Route path="vendor/" element={<BankPage />}></Route>
           </Route>
+
           <Route path={baseUrl + 'login/'} element={<Login />} />
         </Routes>
       </BrowserRouter>

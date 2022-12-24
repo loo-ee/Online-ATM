@@ -11,7 +11,7 @@ interface Prop {}
 
 const AdminFeed: React.FC<Prop> = ({}) => {
   const Admin = useContext(AdminContext);
-  const [page, setPage] = useState('pin-change');
+  const [page, setPage] = useState('account-creation');
   const navigator = useNavigate();
 
   useEffect(() => {
