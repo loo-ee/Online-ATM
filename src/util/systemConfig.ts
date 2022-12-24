@@ -26,7 +26,7 @@ export type AccountModel = {
 
 export type AccountRequest = {
   username: string;
-  user: string;
+  userEmail: string;
   bank: string;
 };
 
