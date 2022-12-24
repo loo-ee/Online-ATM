@@ -1,5 +1,10 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { createAccount } from '../../adapter/adminAdapter';
+import { useNavigate } from 'react-router-dom';
+import {
+  createAccount,
+  deleteAccountRequests,
+  getAccountRequests,
+} from '../../adapter/adminAdapter';
 import { createMessage } from '../../adapter/userAdapter';
 import { AdminContext } from '../../contexts/AdminContext';
 import { AccountRequest, MessageModel } from '../../util/systemConfig';
@@ -16,15 +21,16 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
   const accountNumberField = useRef<HTMLInputElement>(null);
   const pinField = useRef<HTMLInputElement>(null);
   const messageField = useRef<HTMLTextAreaElement>(null);
+  const navigator = useNavigate();
 
-  // const
   const changePin = async () => {
-    if (!messageField.current || !request) return;
+    validateFields();
+    if (!request) return;
 
     const sender = 'admin';
     const receiver = request.userEmail;
     const title = 'Account Creation Successful';
-    const body = messageField.current.value;
+    const body = messageField.current!.value;
 
     const message: MessageModel = {
       sender: sender,
@@ -34,11 +40,33 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
     };
 
     await createMessage(message);
-    await createAccount(receiver, {
-      bank: request.bank,
-      name: request.username,
-      accountNumber: 1234,
-      pin: 1234,
+    await createAccount({
+      userEmail: receiver,
+      bank: bankField.current!.value,
+      name: usernameField.current!.value,
+      accountNumber: accountNumberField.current!.value,
+      pin: pinField.current!.value,
+    });
+    await deleteAccountRequests(
+      usernameField.current!.value,
+      bankField.current!.value
+    );
+
+    navigator(0);
+  };
+
+  const validateFields = () => {
+    const fields = [
+      bankField,
+      usernameField,
+      accountNumberField,
+      pinField,
+      messageField,
+    ];
+
+    fields.forEach((currentField) => {
+      if (currentField.current!.value == '')
+        currentField.current!.value = currentField.current!.placeholder;
     });
   };
 
@@ -139,14 +167,17 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
                     placeholder={`${request!.userEmail}, your ${
                       request?.bank
                     } account has been created successfully.`}
-                    className="text-black phone:p-1 laptop:p-3 rounded phone:w-32 phone:text-xs laptop:text-lg laptop:w-auto"
+                    className="text-black laptop:w-[250px] phone:p-1 laptop:p-3 rounded phone:w-32 phone:text-xs laptop:text-lg"
                   />
                 </div>
               </div>
             </div>
 
             <div className="flex phone:flex-row phone:justify-between tablet:justify-around phone:w-full laptop:w-auto laptop:flex-col laptop:ml-4">
-              <button className="bg-green-500 laptop:my-3 phone:p-1 laptop:p-3 phone:w-28 laptop:w-44 rounded text-white">
+              <button
+                className="bg-green-500 laptop:my-3 phone:p-1 laptop:p-3 phone:w-28 laptop:w-44 rounded text-white"
+                onClick={changePin}
+              >
                 Create
               </button>
 

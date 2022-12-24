@@ -17,12 +17,20 @@ export const getAccountRequests = async (): Promise<AccountRequest[]> => {
   }
 };
 
-export const createAccount = async (userEmail: string, account: {}) => {
+export const deleteAccountRequests = async (username: string, bank: string) => {
   try {
-    await api.post('create-account/', {
-      userEmail,
-      ...account,
+    await api.delete('delete-account-req/', {
+      data: {
+        username: username,
+        bank: bank,
+      },
     });
+  } catch (error) {}
+};
+
+export const createAccount = async (account: {}) => {
+  try {
+    await api.post('create-account/', account);
   } catch (error) {
     console.log(error);
   }
