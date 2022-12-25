@@ -17,7 +17,7 @@ export const getAccountRequests = async (): Promise<AccountRequest[]> => {
   }
 };
 
-export const deleteAccountRequests = async (username: string, bank: string) => {
+export const deleteAccountRequest = async (username: string, bank: string) => {
   try {
     await api.delete('delete-account-req/', {
       data: {

@@ -183,6 +183,8 @@ const RequestCard: React.FC<RequestCardProp> = ({
   preparatoryOperation,
   setRequestForParent,
 }) => {
+  const navigator = useNavigate();
+
   const prepareToChangePin = () => {
     setRequestForParent(requestBody);
     preparatoryOperation(true);
@@ -212,7 +214,14 @@ const RequestCard: React.FC<RequestCardProp> = ({
         </button>
         <button
           className="bg-red-700 p-2 rounded w-24"
-          onClick={() => preparatoryOperation(false)}
+          onClick={async () => {
+            await deleteChangePinRequest(
+              requestBody.accountNumber,
+              requestBody.newPin
+            );
+
+            navigator(0);
+          }}
         >
           Deny
         </button>

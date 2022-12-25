@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   createAccount,
-  deleteAccountRequests,
+  deleteAccountRequest,
   getAccountRequests,
 } from '../../adapter/adminAdapter';
 import { createMessage } from '../../adapter/userAdapter';
@@ -47,10 +47,7 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
       accountNumber: accountNumberField.current!.value,
       pin: pinField.current!.value,
     });
-    await deleteAccountRequests(
-      usernameField.current!.value,
-      bankField.current!.value
-    );
+    await deleteAccountRequest(request.username, request.bank);
 
     navigator(0);
   };
@@ -191,7 +188,7 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
           </div>
         </>
       ) : (
-        <>
+        <div>
           <span className="phone:text-xl laptop:text-3xl">
             Account Creation Requests
           </span>
@@ -206,7 +203,7 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
               />
             ))}
           </div>
-        </>
+        </div>
       )}
     </div>
   );
@@ -225,6 +222,8 @@ const RequestCard: React.FC<RequestCardProp> = ({
   setRequestForParent,
   setColorScheme,
 }) => {
+  const navigator = useNavigate();
+
   const bgColor = {
     BDO: 'bg-blue-900',
     BPI: 'bg-red-900',
@@ -259,11 +258,15 @@ const RequestCard: React.FC<RequestCardProp> = ({
           className="bg-green-600 p-2 rounded w-24"
           onClick={prepareToCreateAccount}
         >
-          Approve
+          Check
         </button>
         <button
           className="bg-red-700 p-2 rounded w-24"
-          // TODO: Create delete function to delete account creation request
+          onClick={async () => {
+            await deleteAccountRequest(requestBody.username, requestBody.bank);
+
+            navigator(0);
+          }}
         >
           Deny
         </button>
