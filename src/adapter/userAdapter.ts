@@ -163,3 +163,12 @@ export const createMessage = async (message: MessageModel) => {
     return null;
   }
 };
+
+export const getAccount = async (accountNumber: number) => {
+  try {
+    const res = await api.get(`account/${accountNumber}/`);
+    return res.data;
+  } catch (error) {
+    return null;
+  }
+};
