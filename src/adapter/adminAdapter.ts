@@ -45,3 +45,11 @@ export const getPinChangeRequests = async () => {
     return [];
   }
 };
+
+export const changeAccountPin = async (account: AccountModel) => {
+  try {
+    await api.put(`update-account/${account.accountNumber}/`, account);
+  } catch (error) {
+    return null;
+  }
+};
