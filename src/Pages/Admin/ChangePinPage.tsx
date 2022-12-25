@@ -1,5 +1,9 @@
 import { useContext, useRef, useState } from 'react';
-import { changeAccountPin } from '../../adapter/adminAdapter';
+import { useNavigate } from 'react-router-dom';
+import {
+  changeAccountPin,
+  deleteChangePinRequest,
+} from '../../adapter/adminAdapter';
 import { createMessage, getAccount } from '../../adapter/userAdapter';
 import { AdminContext } from '../../contexts/AdminContext';
 import {
@@ -18,6 +22,7 @@ const ChangePinPage: React.FC<Prop> = ({}) => {
   const accountNumberField = useRef<HTMLInputElement>(null);
   const newPinField = useRef<HTMLInputElement>(null);
   const messageField = useRef<HTMLTextAreaElement>(null);
+  const navigator = useNavigate();
 
   const validateFields = () => {
     const fields = [accountNumberField, newPinField, messageField];
@@ -54,6 +59,9 @@ const ChangePinPage: React.FC<Prop> = ({}) => {
       name: foundAccount.name,
       pin: Number(newPinField.current!.value),
     });
+    await deleteChangePinRequest(request.accountNumber, request.newPin);
+
+    navigator(0);
 
     console.log('Change pin succesful');
   };

@@ -28,6 +28,22 @@ export const deleteAccountRequests = async (username: string, bank: string) => {
   } catch (error) {}
 };
 
+export const deleteChangePinRequest = async (
+  accountNumber: number,
+  newPin: number
+) => {
+  try {
+    await api.delete('delete-change-pin-req/', {
+      data: {
+        accountNumber: accountNumber,
+        newPin: newPin,
+      },
+    });
+  } catch (error) {
+    console.log('dumbass');
+  }
+};
+
 export const createAccount = async (account: {}) => {
   try {
     await api.post('create-account/', account);
