@@ -23,7 +23,7 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
   const messageField = useRef<HTMLTextAreaElement>(null);
   const navigator = useNavigate();
 
-  const changePin = async () => {
+  const approveAccountCreation = async () => {
     validateFields();
     if (!request) return;
 
@@ -176,7 +176,7 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
             <div className="flex phone:flex-row phone:justify-between tablet:justify-around phone:w-full laptop:w-auto laptop:flex-col laptop:ml-4">
               <button
                 className="bg-green-500 laptop:my-3 phone:p-1 laptop:p-3 phone:w-28 laptop:w-44 rounded text-white"
-                onClick={changePin}
+                onClick={approveAccountCreation}
               >
                 Create
               </button>
@@ -230,7 +230,7 @@ const RequestCard: React.FC<RequestCardProp> = ({
     BPI: 'bg-red-900',
   };
 
-  const prepareToChangePin = () => {
+  const prepareToCreateAccount = () => {
     const color: string = bgColor[requestBody.bank as keyof typeof bgColor];
 
     preparatoryOperation(true);
@@ -257,7 +257,7 @@ const RequestCard: React.FC<RequestCardProp> = ({
       <div className="flex flex-row mt-5 justify-evenly">
         <button
           className="bg-green-600 p-2 rounded w-24"
-          onClick={prepareToChangePin}
+          onClick={prepareToCreateAccount}
         >
           Approve
         </button>
