@@ -1,6 +1,13 @@
 import { useContext, useRef, useState } from 'react';
+import { changeAccountPin } from '../../adapter/adminAdapter';
+import { createMessage, getAccount } from '../../adapter/userAdapter';
 import { AdminContext } from '../../contexts/AdminContext';
-import { AccountRequest, ChangePinRequest } from '../../util/systemConfig';
+import {
+  AccountModel,
+  AccountRequest,
+  ChangePinRequest,
+  MessageModel,
+} from '../../util/systemConfig';
 
 interface Prop {}
 
@@ -12,17 +19,50 @@ const ChangePinPage: React.FC<Prop> = ({}) => {
   const newPinField = useRef<HTMLInputElement>(null);
   const messageField = useRef<HTMLTextAreaElement>(null);
 
-  const validateFields = () => {};
+  const validateFields = () => {
+    const fields = [accountNumberField, newPinField, messageField];
+
+    fields.forEach((currentField) => {
+      if (currentField.current!.value == '')
+        currentField.current!.value = currentField.current!.placeholder;
+    });
+  };
 
   const changePin = async () => {
     validateFields();
+
+    if (!request) return;
+
+    const sender = 'admin';
+    const receiver = request.accountNumber.toString();
+    const title = 'Account Pin Change Successful';
+    const body = messageField.current!.value;
+
+    const message: MessageModel = {
+      sender: sender,
+      receiver: receiver,
+      title: title,
+      body: body,
+    };
+
+    const foundAccount: AccountModel = await getAccount(request.accountNumber);
+    await createMessage(message);
+    await changeAccountPin({
+      accountNumber: Number(accountNumberField.current!.value),
+      balance: foundAccount.balance,
+      bank: foundAccount.bank,
+      name: foundAccount.name,
+      pin: Number(newPinField.current!.value),
+    });
+
+    console.log('Change pin succesful');
   };
   return (
     <div className="mt-10 flex flex-col items-center phone:w-[250px] tablet:w-[500px] laptop:w-[700px]">
       {isReadyForChange ? (
         <>
           <span className="phone:text-xl laptop:text-3xl">
-            Account Creation
+            Account Pin Change
           </span>
 
           <div className="flex phone:flex-col justify-center laptop:flex-row items-center">
@@ -90,7 +130,7 @@ const ChangePinPage: React.FC<Prop> = ({}) => {
                 className="bg-green-500 laptop:my-3 phone:p-1 laptop:p-3 phone:w-28 laptop:w-44 rounded text-white"
                 onClick={changePin}
               >
-                Create
+                Approve
               </button>
 
               <button
@@ -160,7 +200,7 @@ const RequestCard: React.FC<RequestCardProp> = ({
           className="bg-green-600 p-2 rounded w-24"
           onClick={prepareToChangePin}
         >
-          Approve
+          Check
         </button>
         <button
           className="bg-red-700 p-2 rounded w-24"
