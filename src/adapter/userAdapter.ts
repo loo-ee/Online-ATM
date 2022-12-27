@@ -164,6 +164,15 @@ export const createMessage = async (message: MessageModel) => {
   }
 };
 
+export const getMessages = async (receiver: string) => {
+  try {
+    const res = await api.get(`messages/${receiver}/`);
+    return res.data;
+  } catch (error) {
+    return null;
+  }
+};
+
 export const getAccount = async (accountNumber: number) => {
   try {
     const res = await api.get(`account/${accountNumber}/`);
