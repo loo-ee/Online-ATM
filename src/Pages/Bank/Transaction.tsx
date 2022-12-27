@@ -8,7 +8,7 @@ import { SystemContext } from '../../contexts/SystemContext';
 import { UserContext } from '../../contexts/UserContext';
 import { Message } from '../../util/Message';
 import NumPad from '../../util/NumPad';
-import { AccountModel } from '../../util/systemConfig';
+import { AccountModel, MessageModel } from '../../util/systemConfig';
 import BankPageHeader from './BankgPageHeader';
 import PasswordChange from './PasswordChange';
 
@@ -34,11 +34,29 @@ const Transaction: React.FC<Prop> = ({ account }) => {
   const deposit = async (moneyDeposit: number) => {
     account.balance += moneyDeposit;
     await updateAccount(account);
+
+    const message: MessageModel = {
+      sender: 'Admin',
+      receiver: account.accountNumber.toString(),
+      title: 'Account Deposit Status',
+      body: `You have successfully deposited ${moneyDeposit} to your account [${account.accountNumber}].`,
+    };
+
+    await createMessage(message);
   };
 
   const withdraw = async (deduction: number) => {
     account.balance -= deduction;
     await updateAccount(account);
+
+    const message: MessageModel = {
+      sender: 'Admin',
+      receiver: account.accountNumber.toString(),
+      title: 'Account Withdrawal Status',
+      body: `You have successfully withdrawed ${deduction} to your account [${account.accountNumber}].`,
+    };
+
+    await createMessage(message);
   };
 
   const validateAccount = async (accountNumber: number) => {
