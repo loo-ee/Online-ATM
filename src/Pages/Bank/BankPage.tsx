@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { SystemContext } from '../../contexts/SystemContext';
 import { UserContext, nullAccount } from '../../contexts/UserContext';
+import NumPad from '../../util/NumPad';
 import { AccountModel } from '../../util/systemConfig';
 import ModeSelection from './ModeSelection';
 import Transaction from './Transaction';
@@ -10,7 +11,8 @@ interface Prop {}
 const BankPage: React.FC<Prop> = ({}) => {
   const System = useContext(SystemContext);
   const User = useContext(UserContext);
-
+  const [arePasswordsMatched, passwordsAreMatched] = useState(false);
+  const [headerText, setHeaderText] = useState('Please enter your pin');
   const [accountForBank, setAccountForBank] = useState<AccountModel | null>(
     null
   );
@@ -36,6 +38,21 @@ const BankPage: React.FC<Prop> = ({}) => {
   useEffect(() => {
     checkWhichAccount();
   }, []);
+
+  const validateLogin = (pin: number) => {
+    const status = pin == accountForBank!.pin;
+
+    if (status) passwordsAreMatched(true);
+    else displayWarning();
+  };
+
+  const displayWarning = () => {
+    setHeaderText("Passwords don't match!");
+
+    setTimeout(() => {
+      setHeaderText('Please enter your pin');
+    }, 5000);
+  };
 
   if (!User) {
     return <div>Link Account</div>;
@@ -80,12 +97,26 @@ const BankPage: React.FC<Prop> = ({}) => {
           </div>
         </div>
 
-        <div className="flex flex-row justify-between mt-10">
-          <ModeSelection />
-          <Transaction
-            account={accountForBank ? accountForBank : nullAccount}
-          />
-        </div>
+        {arePasswordsMatched ? (
+          <div className="flex flex-row justify-between mt-10">
+            <ModeSelection />
+            <Transaction
+              account={accountForBank ? accountForBank : nullAccount}
+            />
+          </div>
+        ) : (
+          <>
+            <div className="flex flex-col items-center mt-5">
+              <span className="bg-white p-4 rounded-lg w-[230px] text-center">
+                {headerText}
+              </span>
+
+              <div>
+                <NumPad mainOperation={validateLogin} />
+              </div>
+            </div>
+          </>
+        )}
       </div>
     );
   } else {
