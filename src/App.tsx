@@ -17,6 +17,7 @@ import BankPage from './Pages/Bank/BankPage';
 import Feed from './Pages/Home/Feed/Feed';
 import HomePage from './Pages/Home/HomePage';
 import Login from './Pages/Login/Login';
+import Messages from './Pages/Messages/Messages';
 import { baseUrl } from './util/systemConfig';
 
 function App() {
@@ -53,6 +54,8 @@ function App() {
             }
           >
             <Route path="feed/" element={<Feed />}></Route>
+
+            <Route path="messages/" element={<Messages />} />
 
             <Route path="admin/" element={<AdminFeed />}>
               <Route

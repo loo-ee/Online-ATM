@@ -1,6 +1,15 @@
+import { useNavigate } from 'react-router-dom';
+import { baseUrl } from '../../util/systemConfig';
+
 interface Prop {}
 
 const Header: React.FC<Prop> = ({}) => {
+  const navigator = useNavigate();
+
+  const returnToHomePage = () => {
+    navigator(baseUrl + 'feed/');
+  };
+
   return (
     <div
       id="header"
@@ -13,9 +22,13 @@ const Header: React.FC<Prop> = ({}) => {
               .href
           }
           className="w-16 ml-3 mt-3"
+          onClick={returnToHomePage}
           alt=""
         />
-        <span className="text-u_darkblue ml-5 laptop:text-5xl tablet:text-2xl phone:text-md">
+        <span
+          className="text-u_darkblue ml-5 laptop:text-5xl tablet:text-2xl phone:text-md"
+          onClick={returnToHomePage}
+        >
           ATM Service
         </span>
       </div>
