@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import Controls from './Controls/Controls';
 import Header from './Header';
 
 interface Prop {}
@@ -8,9 +9,7 @@ const HomePage: React.FC<Prop> = ({}) => {
     <>
       <Header />
       <div className="flex flex-row justify-between mt-28">
-        <div className="w-28 border-2 h-80 laptop:flex tablet:flex phone:hidden">
-          controls
-        </div>
+        <Controls />
         <div
           id="home-page"
           className="bg-u_gray tablet:w-full phone:w-[300px] rounded-xl p-6 mx-6 flex flex-col items-center"

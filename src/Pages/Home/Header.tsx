@@ -18,11 +18,6 @@ const Header: React.FC<Prop> = ({}) => {
         <span className="text-u_darkblue ml-5 laptop:text-5xl tablet:text-2xl phone:text-md">
           ATM Service
         </span>
-        <input
-          type="text"
-          placeholder="Search Bank"
-          className="border-2 rounded-xl laptop:w-80 phone:w-40 mt-3 phone:ml-6 laptop:ml-12 p-2 text-lg border-u_gray"
-        />
       </div>
       <div className="flex flex-row justify-between phone:w-20 laptop:w-72 mx-7">
         <img
