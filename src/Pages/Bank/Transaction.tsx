@@ -31,6 +31,11 @@ const Transaction: React.FC<Prop> = ({ account }) => {
   const [isReadyForTransfer, setIsReadyForTransfer] = useState(false);
   const messageField = useRef<HTMLInputElement>(null);
 
+  const deposit = async (moneyDeposit: number) => {
+    account.balance += moneyDeposit;
+    await updateAccount(account);
+  };
+
   const withdraw = async (deduction: number) => {
     account.balance -= deduction;
     await updateAccount(account);
@@ -82,7 +87,14 @@ const Transaction: React.FC<Prop> = ({ account }) => {
     setIsReadyForTransfer(false);
   };
 
-  if (System?.transactionMode == 'withdraw') {
+  if (System?.transactionMode == 'deposit') {
+    return (
+      <div className="flex flex-col items-center">
+        <BankPageHeader headerText="Input amount to deposit" />
+        <NumPad mainOperation={deposit} />
+      </div>
+    );
+  } else if (System?.transactionMode == 'withdraw') {
     return (
       <div className="flex flex-col items-center">
         <BankPageHeader headerText="Input amount to withdraw" />

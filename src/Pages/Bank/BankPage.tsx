@@ -107,7 +107,7 @@ const BankPage: React.FC<Prop> = ({}) => {
         ) : (
           <>
             <div className="flex flex-col items-center mt-5">
-              <span className="bg-white p-4 rounded-lg w-[230px] text-center">
+              <span className="bg-white phone:p-2 laptop:p-4 rounded-lg phone:w-[150px] laptop:w-[230px] text-center phone:text-xs laptop:text-lg">
                 {headerText}
               </span>
 
