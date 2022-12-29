@@ -10,7 +10,9 @@ const Messages: React.FC<Prop> = ({}) => {
 
   return (
     <div className="w-[700px]">
-      <span>Messages</span>
+      <span className="text-5xl flex flex-col items-center mb-8">
+        User Inbox
+      </span>
 
       <Inbox receiver={User!.user.email} inboxType="user" />
 
@@ -48,7 +50,9 @@ const Inbox: React.FC<InboxProp> = ({ receiver, inboxType }) => {
   else
     return (
       <div className=" my-3 p-3 rounded">
-        <span className="ml-4 text-3xl">Messages for {receiver}</span>
+        <span className="ml-4 text-3xl">
+          Messages for <span className="text-u_darkblue">{receiver}</span>
+        </span>
 
         <div className="mt-3 overflow-x-scroll grid-flow-col grid hide-scroll">
           {messages?.map((message) => (
@@ -73,11 +77,11 @@ interface MessageCardProp {
 const MessageCard: React.FC<MessageCardProp> = ({ message, inboxType }) => {
   const colorSchemes = {
     user: {
-      bg: ' bg-u_skyblue',
-      textBg: ' text-black',
+      bg: ' bg-blue-500',
+      textBg: ' text-white',
     },
     account: {
-      bg: ' bg-red-600',
+      bg: ' bg-red-500',
       textBg: ' text-white',
     },
   };
