@@ -76,7 +76,7 @@ const Transaction: React.FC<Prop> = ({ account }) => {
     setIsAccountFound(true);
   };
 
-  const prepareToSendMoney = async (amount: number) => {
+  const prepareToSendMoney = (amount: number) => {
     if (!accountToReceive) return;
 
     setAmountToTransfer(amount);

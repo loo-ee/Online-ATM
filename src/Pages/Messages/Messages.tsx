@@ -9,16 +9,17 @@ const Messages: React.FC<Prop> = ({}) => {
   const User = useContext(UserContext);
 
   return (
-    <div>
+    <div className="w-[700px]">
       <span>Messages</span>
 
-      <Inbox receiver={User!.user.email} />
+      <Inbox receiver={User!.user.email} inboxType="user" />
 
       <div className="">
         {User?.user.accounts.map((account) => (
           <Inbox
             key={account.accountNumber}
             receiver={account.accountNumber.toString()}
+            inboxType="account"
           />
         ))}
       </div>
@@ -28,9 +29,10 @@ const Messages: React.FC<Prop> = ({}) => {
 
 interface InboxProp {
   receiver: string;
+  inboxType: string;
 }
 
-const Inbox: React.FC<InboxProp> = ({ receiver }) => {
+const Inbox: React.FC<InboxProp> = ({ receiver, inboxType }) => {
   const [messages, setMessages] = useState<MessageModel[]>();
 
   useEffect(() => {
@@ -42,27 +44,66 @@ const Inbox: React.FC<InboxProp> = ({ receiver }) => {
     setMessages(foundMessages);
   };
 
-  return (
-    <div className="bg-u_skyblue my-3 p-3 rounded text-white">
-      <span>Messages for {receiver}</span>
+  if (messages?.length == 0) return <></>;
+  else
+    return (
+      <div className=" my-3 p-3 rounded">
+        <span className="ml-4 text-3xl">Messages for {receiver}</span>
 
-      <div>
-        {messages?.map((message) => (
-          <MessageCard key={message.body} message={message} />
-        ))}
+        <div className="mt-3 overflow-x-scroll grid-flow-col grid hide-scroll">
+          {messages?.map((message) => (
+            <MessageCard
+              key={message.body}
+              message={message}
+              inboxType={inboxType}
+            />
+          ))}
+        </div>
+
+        <div></div>
       </div>
-
-      <div></div>
-    </div>
-  );
+    );
 };
 
 interface MessageCardProp {
   message: MessageModel;
+  inboxType: string;
 }
 
-const MessageCard: React.FC<MessageCardProp> = ({ message }) => {
-  return <div>{message.body}</div>;
+const MessageCard: React.FC<MessageCardProp> = ({ message, inboxType }) => {
+  const colorSchemes = {
+    user: {
+      bg: ' bg-u_skyblue',
+      textBg: ' text-black',
+    },
+    account: {
+      bg: ' bg-red-600',
+      textBg: ' text-white',
+    },
+  };
+
+  return (
+    <div
+      className={
+        'mx-4 w-[300px] rounded-lg p-4' +
+        colorSchemes[inboxType as keyof typeof colorSchemes].bg +
+        colorSchemes[inboxType as keyof typeof colorSchemes].textBg
+      }
+    >
+      <span className="text-2xl">{message.title}</span>
+
+      <div className="mt-4">
+        <span className="text-xl">Sender: {message.sender}</span>
+
+        <div className="">
+          <div className="flex flex-col mt-3">
+            <span>Content:</span>
+            <span>{message.body}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Messages;
