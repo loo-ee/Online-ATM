@@ -19,12 +19,12 @@ const BankPage: React.FC<Prop> = ({}) => {
 
   const colorScheme = {
     BDO: {
-      dropdownHeader: ' bg-blue-900',
-      dropdownItems: ' bg-blue-500',
+      primaryColor: ' bg-primary',
+      secondaryColor: ' bg-blue-500',
     },
     BPI: {
-      dropdownHeader: ' bg-red-900',
-      dropdownItems: ' bg-red-500',
+      primaryColor: ' bg-tertiary',
+      secondaryColor: ' bg-red-500',
     },
   };
 
@@ -70,19 +70,26 @@ const BankPage: React.FC<Prop> = ({}) => {
   } else if (System?.bankSelected && User) {
     return (
       <div>
-        <div className="flex flex-row justify-between">
-          <div className="phone:mb-2 laptop:mb-9">
-            <span className="text-u_darkblue phone:text-lg laptop:text-3xl">
+        <div className="flex flex-row justify-between items-start">
+          <div
+            className={
+              'phone:mb-2 laptop:mb-6 p-3 rounded-lg' +
+              colorScheme[
+                System.bankSelected.bankName as keyof typeof colorScheme
+              ].primaryColor
+            }
+          >
+            <span className="text-white phone:text-lg laptop:text-3xl">
               Connected to {System?.bankSelected.bankName}
             </span>
           </div>
 
           <div
             className={
-              'text-white p-3 rounded-lg w-[150px] h-12' +
+              'text-white p-3 rounded-lg phone:w-[50px] laptop:w-[150px] h-12' +
               colorScheme[
                 System.bankSelected.bankName as keyof typeof colorScheme
-              ].dropdownHeader
+              ].primaryColor
             }
           >
             <DropDownMenu
@@ -93,20 +100,27 @@ const BankPage: React.FC<Prop> = ({}) => {
           </div>
         </div>
 
-        <div className="bg-white phone:w-[280px] laptop:w-[600px] rounded-lg phone:p-2 laptop:p-6 flex flex-row items-center justify-between">
+        <div
+          className={
+            'phone:w-[280px] laptop:w-[600px] rounded-lg phone:p-2 laptop:p-6 flex flex-row items-center justify-between' +
+            colorScheme[
+              System.bankSelected.bankName as keyof typeof colorScheme
+            ].primaryColor
+          }
+        >
           <div className="flex flex-col">
-            <span className="text-u_darkblue phone:text-md laptop:text-2xl">
-              <span className="text-u_orange">Name: </span>
+            <span className="text-white phone:text-md laptop:text-2xl">
+              <span className="text-u_gray">Name: </span>
               {accountForBank?.name}
             </span>
-            <span className="text-u_darkblue phone:text-sm laptop:text-xl">
-              <span className="text-u_orange">Acc #: </span>
+            <span className="text-white phone:text-sm laptop:text-xl">
+              <span className="text-u_gray">Acc #: </span>
               {accountForBank?.accountNumber}
             </span>
           </div>
 
           <div className="flex flex-row items-center">
-            <span className="phone:text-xl laptop:text-5xl">
+            <span className="phone:text-xl laptop:text-5xl text-white">
               {System?.bankSelected.bankName}
             </span>
             <img
@@ -126,7 +140,7 @@ const BankPage: React.FC<Prop> = ({}) => {
         </div>
 
         {arePasswordsMatched ? (
-          <div className="flex flex-row justify-between mt-10">
+          <div className="flex flex-row justify-between phone:mt-4 laptop:mt-10">
             <ModeSelection />
             <Transaction
               account={accountForBank ? accountForBank : nullAccount}
@@ -152,24 +166,24 @@ const BankPage: React.FC<Prop> = ({}) => {
   }
 };
 
-interface Prop {
+interface DropDownMenuProp {
   setAccountForBankPage: React.Dispatch<
     React.SetStateAction<AccountModel | null>
   >;
   isAccountAndPassMatched: React.Dispatch<React.SetStateAction<boolean>>;
   colorScheme: {
     BDO: {
-      dropdownHeader: string;
-      dropdownItems: string;
+      primaryColor: string;
+      secondaryColor: string;
     };
     BPI: {
-      dropdownHeader: string;
-      dropdownItems: string;
+      primaryColor: string;
+      secondaryColor: string;
     };
   };
 }
 
-export const DropDownMenu: React.FC<Prop> = ({
+export const DropDownMenu: React.FC<DropDownMenuProp> = ({
   setAccountForBankPage,
   isAccountAndPassMatched,
   colorScheme,
@@ -182,21 +196,30 @@ export const DropDownMenu: React.FC<Prop> = ({
   const configureBankPageUI = (account: AccountModel) => {
     setAccountForBankPage(account);
     isAccountAndPassMatched(false);
+    dropdownClicked(false);
   };
 
   return (
     <div className="flex flex-col items-center">
       <button onClick={() => dropdownClicked(!isDropdownClicked)}>
-        Change Account
+        <span className="phone:hidden laptop:flex">Change Account</span>
+
+        <img
+          src={
+            new URL('../../assets/images/caret-down.png', import.meta.url).href
+          }
+          className="w-12 phone:flex laptop:hidden"
+          alt=""
+        />
       </button>
 
       {isDropdownClicked && (
         <div
           className={
-            'p-2 rounded absolute w-[130px] mt-7' +
+            'phone:p-1 laptop:p-2 rounded absolute phone:w-11 laptop:w-[130px] mt-7' +
             colorScheme[
               System?.bankSelected.bankName as keyof typeof colorScheme
-            ].dropdownItems
+            ].secondaryColor
           }
           id="hover-element"
         >
@@ -207,7 +230,9 @@ export const DropDownMenu: React.FC<Prop> = ({
               onClick={() => configureBankPageUI(account)}
             >
               {account.bank == System!.bankSelected.bankName && (
-                <button>{account.accountNumber}</button>
+                <button className="phone:text-xs laptop:text-lg border-b-2 border-black mt-2">
+                  {account.accountNumber}
+                </button>
               )}
             </div>
           ))}

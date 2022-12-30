@@ -11,9 +11,9 @@ const Controls: React.FC<Prop> = ({}) => {
   };
 
   return (
-    <div className="flex-col w-32 border-2 rounded-lg h-80 laptop:flex tablet:flex phone:hidden items-center justify-evenly p-3">
+    <div className="flex-col w-32 rounded-lg h-80 laptop:flex tablet:flex phone:hidden items-center justify-evenly p-3">
       <div
-        className="w-24 h-32 border-2 items-center bg-u_gray p-3 rounded-lg"
+        className="w-24 h-32 border-4 border-black items-center bg-u_gray p-3 rounded-lg"
         onClick={goToMessages}
       >
         <img
@@ -26,7 +26,7 @@ const Controls: React.FC<Prop> = ({}) => {
         <span>Messages</span>
       </div>
 
-      <div className="w-24 h-32 border-2 bg-u_gray items-center p-3 rounded-lg">
+      <div className="w-24 h-32 border-4 border-black bg-u_gray items-center p-3 rounded-lg">
         <img
           src={
             new URL('../../../assets/images/settings.png', import.meta.url).href

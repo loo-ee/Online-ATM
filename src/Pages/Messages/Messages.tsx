@@ -76,25 +76,18 @@ interface MessageCardProp {
 
 const MessageCard: React.FC<MessageCardProp> = ({ message, inboxType }) => {
   const colorSchemes = {
-    user: {
-      bg: ' bg-blue-500',
-      textBg: ' text-white',
-    },
-    account: {
-      bg: ' bg-red-500',
-      textBg: ' text-white',
-    },
+    user: ' bg-green-500',
+    account: ' bg-yellow-700',
   };
 
   return (
     <div
       className={
-        'mx-4 w-[300px] rounded-lg p-4' +
-        colorSchemes[inboxType as keyof typeof colorSchemes].bg +
-        colorSchemes[inboxType as keyof typeof colorSchemes].textBg
+        'mx-4 w-[300px] rounded-lg p-4 text-white' +
+        colorSchemes[inboxType as keyof typeof colorSchemes]
       }
     >
-      <span className="text-2xl">{message.title}</span>
+      <span className="text-2xl text-red-600">{message.title}</span>
 
       <div className="mt-4">
         <span className="text-xl">Sender: {message.sender}</span>

@@ -12,7 +12,7 @@ const HomePage: React.FC<Prop> = ({}) => {
         <Controls />
         <div
           id="home-page"
-          className="bg-u_gray tablet:w-full phone:w-[300px] rounded-xl p-6 mx-6 flex flex-col items-center"
+          className="bg-secondary border-black border-4 tablet:w-full phone:w-[300px] rounded-xl p-6 mx-6 flex flex-col items-center"
         >
           <Outlet />
         </div>

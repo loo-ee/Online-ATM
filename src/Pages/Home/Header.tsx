@@ -13,7 +13,7 @@ const Header: React.FC<Prop> = ({}) => {
   return (
     <div
       id="header"
-      className="flex flex-row justify-between items-center pb-3 w-full border-2 fixed bg-white"
+      className="flex flex-row justify-between border-b-4 border-black items-center pb-3 w-full fixed bg-secondary z-50"
     >
       <div className="flex flex-row w-full items-center">
         <img
