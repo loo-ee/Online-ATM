@@ -18,8 +18,14 @@ const BankPage: React.FC<Prop> = ({}) => {
   );
 
   const colorScheme = {
-    BDO: ' bg-blue-900',
-    BPI: ' bg-red-900',
+    BDO: {
+      dropdownHeader: ' bg-blue-900',
+      dropdownItems: ' bg-blue-500',
+    },
+    BPI: {
+      dropdownHeader: ' bg-red-900',
+      dropdownItems: ' bg-red-500',
+    },
   };
 
   const checkWhichAccount = () => {
@@ -76,12 +82,13 @@ const BankPage: React.FC<Prop> = ({}) => {
               'text-white p-3 rounded-lg w-[150px] h-12' +
               colorScheme[
                 System.bankSelected.bankName as keyof typeof colorScheme
-              ]
+              ].dropdownHeader
             }
           >
             <DropDownMenu
               setAccountForBankPage={setAccountForBank}
               isAccountAndPassMatched={passwordsAreMatched}
+              colorScheme={colorScheme}
             />
           </div>
         </div>
@@ -150,11 +157,22 @@ interface Prop {
     React.SetStateAction<AccountModel | null>
   >;
   isAccountAndPassMatched: React.Dispatch<React.SetStateAction<boolean>>;
+  colorScheme: {
+    BDO: {
+      dropdownHeader: string;
+      dropdownItems: string;
+    };
+    BPI: {
+      dropdownHeader: string;
+      dropdownItems: string;
+    };
+  };
 }
 
 export const DropDownMenu: React.FC<Prop> = ({
   setAccountForBankPage,
   isAccountAndPassMatched,
+  colorScheme,
 }) => {
   const User = useContext(UserContext);
   const System = useContext(SystemContext);
@@ -174,13 +192,18 @@ export const DropDownMenu: React.FC<Prop> = ({
 
       {isDropdownClicked && (
         <div
-          className="bg-u_skyblue p-2 rounded absolute w-[130px] mt-7"
+          className={
+            'p-2 rounded absolute w-[130px] mt-7' +
+            colorScheme[
+              System?.bankSelected.bankName as keyof typeof colorScheme
+            ].dropdownItems
+          }
           id="hover-element"
         >
           {User!.user.accounts.map((account) => (
             <div
               key={account.accountNumber}
-              className="flex flex-col hover:bg-u_darkblue"
+              className="flex flex-col hover:bg-white hover:text-black"
               onClick={() => configureBankPageUI(account)}
             >
               {account.bank == System!.bankSelected.bankName && (
