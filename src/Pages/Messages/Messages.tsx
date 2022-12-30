@@ -9,8 +9,8 @@ const Messages: React.FC<Prop> = ({}) => {
   const User = useContext(UserContext);
 
   return (
-    <div className="w-[700px]">
-      <span className="text-5xl flex flex-col items-center mb-8">
+    <div className="phone:w-[250px] laptop:w-[700px]">
+      <span className="phone:text-lg laptop:text-5xl flex flex-col items-center phone:mb-3 laptop:mb-8">
         User Inbox
       </span>
 
@@ -47,12 +47,12 @@ const Inbox: React.FC<InboxProp> = ({ receiver }) => {
   if (messages?.length == 0) return <></>;
   else
     return (
-      <div className={'my-6 p-5 rounded-lg bg-primary'}>
-        <span className="ml-4 text-3xl text-white">
+      <div className={'my-6 phone:p-2 laptop:p-5 rounded-lg bg-primary'}>
+        <span className="ml-4 phone:text-md laptop:text-3xl text-white">
           Messages for <span className="text-secondary">{receiver}</span>
         </span>
 
-        <div className="mt-3 overflow-x-scroll grid-flow-col grid scrollbar-thin">
+        <div className="h-[300px] mt-3 phone:overflow-y-scroll laptop:overflow-x-scroll phone:grid-flow-row laptop:grid-flow-col grid scrollbar-thin">
           {messages?.map((message) => (
             <MessageCard key={message.body} message={message} />
           ))}
@@ -67,17 +67,23 @@ interface MessageCardProp {
 
 const MessageCard: React.FC<MessageCardProp> = ({ message }) => {
   return (
-    <div className={'mx-4 w-[300px] rounded-lg p-4 text-black bg-u_gray'}>
-      <span className="text-2xl text-red-600">{message.title}</span>
+    <div
+      className={
+        'phone:my-2 laptop:mx-4 phone:w-[210px] laptop:w-[300px] rounded-lg p-4 text-black bg-u_gray'
+      }
+    >
+      <span className="phone:text-md laptop:text-2xl text-red-600">
+        {message.title}
+      </span>
 
       <div className="mt-4">
-        <span className="text-xl">Sender: {message.sender}</span>
+        <span className="phone:text-sm laptop:text-xl">
+          Sender: {message.sender}
+        </span>
 
-        <div className="">
-          <div className="flex flex-col mt-3">
-            <span>Content:</span>
-            <span>{message.body}</span>
-          </div>
+        <div className="flex flex-col mt-3">
+          <span className="phone:text-sm laptop:text-xl">Content:</span>
+          <span className="phone:text-xs laptop:text-lg">{message.body}</span>
         </div>
       </div>
     </div>

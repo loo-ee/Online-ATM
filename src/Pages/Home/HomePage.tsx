@@ -8,7 +8,7 @@ const HomePage: React.FC<Prop> = ({}) => {
   return (
     <>
       <Header />
-      <div className="flex phone:flex-col laptop:flex-row items-center mt-28">
+      <div className="flex phone:flex-col laptop:flex-row phone:items-center laptop:items-start mt-28">
         <div className="phone:hidden laptop:flex">
           <Controls />
         </div>
