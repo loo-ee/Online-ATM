@@ -8,7 +8,6 @@ interface Prop {
 export interface UserContextProp {
   user: UserModel;
   setUser: React.Dispatch<React.SetStateAction<UserModel>>;
-  isAdmin: React.MutableRefObject<boolean>;
 }
 
 export const UserContext = React.createContext<UserContextProp | null>(null);
@@ -26,12 +25,9 @@ const UserContextProvider: React.FC<Prop> = ({ children }) => {
 
   const [userAccount, setUserAccount] = useState<UserModel>(userAcc);
 
-  const isAdmin = useRef(false);
-
   const User: UserContextProp = {
     user: userAccount,
     setUser: setUserAccount,
-    isAdmin: isAdmin,
   };
 
   return <UserContext.Provider value={User}>{children}</UserContext.Provider>;
