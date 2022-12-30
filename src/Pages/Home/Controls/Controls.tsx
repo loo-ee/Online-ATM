@@ -1,9 +1,12 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../../contexts/UserContext';
 import { baseUrl } from '../../../util/systemConfig';
 
 interface Prop {}
 
 const Controls: React.FC<Prop> = ({}) => {
+  const User = useContext(UserContext);
   const navigator = useNavigate();
 
   const goToMessages = () => {
@@ -23,7 +26,7 @@ const Controls: React.FC<Prop> = ({}) => {
   };
 
   return (
-    <div className="flex phone:flex-row laptop:flex-col phone:w-96 laptop:w-32 rounded-lg phone:h-[150px] laptop:h-[600px] items-center justify-evenly p-3">
+    <div className="flex phone:flex-row laptop:flex-col phone:w-96 laptop:w-32 rounded-lg phone:h-[150px] laptop:h-[600px] items-center justify-start p-3">
       <SettingsButton
         text="Messages"
         imgSrc="message.png"
@@ -42,7 +45,9 @@ const Controls: React.FC<Prop> = ({}) => {
         operation={goBack}
       />
 
-      <SettingsButton text="Home" imgSrc="home.png" operation={goToHome} />
+      {!User?.user.isAdmin && (
+        <SettingsButton text="Home" imgSrc="home.png" operation={goToHome} />
+      )}
     </div>
   );
 };

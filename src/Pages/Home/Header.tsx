@@ -1,13 +1,17 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../contexts/UserContext';
 import { baseUrl } from '../../util/systemConfig';
 
 interface Prop {}
 
 const Header: React.FC<Prop> = ({}) => {
+  const User = useContext(UserContext);
   const navigator = useNavigate();
 
   const returnToHomePage = () => {
-    navigator(baseUrl + 'feed/');
+    if (!User?.user.isAdmin) navigator(baseUrl + 'feed/');
+    else navigator(baseUrl + 'admin/');
   };
 
   return (
