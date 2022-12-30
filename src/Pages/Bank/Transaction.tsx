@@ -9,7 +9,7 @@ import { UserContext } from '../../contexts/UserContext';
 import { Message } from '../../util/Message';
 import NumPad from '../../util/NumPad';
 import { AccountModel, MessageModel } from '../../util/systemConfig';
-import BankPageHeader from './BankgPageHeader';
+import BankPageHeader from './BankPageHeader';
 import PasswordChange from './PasswordChange';
 
 interface Prop {

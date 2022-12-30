@@ -22,7 +22,7 @@ const HomePage: React.FC<Prop> = ({}) => {
           info
         </div>
 
-        <div className="phone:flex laptop:hidden -mt-16">
+        <div className="phone:flex laptop:hidden mt-2">
           <Controls />
         </div>
       </div>

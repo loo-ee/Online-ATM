@@ -3,7 +3,7 @@ import { createChangePinRequest } from '../../adapter/userAdapter';
 import { Message } from '../../util/Message';
 import NumPad from '../../util/NumPad';
 import { AccountModel, ChangePinRequest } from '../../util/systemConfig';
-import BankPageHeader from './BankgPageHeader';
+import BankPageHeader from './BankPageHeader';
 
 interface Prop {
   account: AccountModel;

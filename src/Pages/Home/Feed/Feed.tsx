@@ -17,7 +17,7 @@ const Feed: React.FC<Prop> = ({}) => {
               import.meta.url
             ).href
           }
-          className="tablet:h-[100px] tablet:w-[300px] laptop:h-[230px] laptop:w-[670px] rounded-lg phone:hidden tablet:flex"
+          className="tablet:h-[100px] tablet:w-[300px] laptop:h-[230px] laptop:w-[670px] rounded-lg mb-6 phone:hidden tablet:flex"
           alt=""
         />
         <div>

@@ -20,11 +20,11 @@ const BankPage: React.FC<Prop> = ({}) => {
   const colorScheme = {
     BDO: {
       primaryColor: ' bg-primary',
-      secondaryColor: ' bg-blue-500',
+      secondaryColor: ' bg-blue-600',
     },
     BPI: {
       primaryColor: ' bg-tertiary',
-      secondaryColor: ' bg-red-500',
+      secondaryColor: ' bg-red-400',
     },
   };
 
@@ -77,7 +77,7 @@ const BankPage: React.FC<Prop> = ({}) => {
               ].primaryColor
             }
           >
-            <span className="text-white phone:text-lg laptop:text-3xl">
+            <span className="text-white phone:text-lg laptop:text-3xl font-bold">
               Connected to {System?.bankSelected.bankName}
             </span>
           </div>
