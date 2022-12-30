@@ -29,7 +29,7 @@ const SystemContextProvider: React.FC<Prop> = ({ children }) => {
 
   const [bankSelected, setBankSelected] = useState<BankModel>(bank);
   const [isBankSelected, setIsBankSelected] = useState(false);
-  const [transactionMode, setTransactionMode] = useState('withdraw');
+  const [transactionMode, setTransactionMode] = useState('deposit');
   const [banks, setBanks] = useState([bank, bank]);
 
   const System: SystemContextProp = {
