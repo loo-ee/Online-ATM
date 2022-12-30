@@ -17,6 +17,11 @@ const BankPage: React.FC<Prop> = ({}) => {
     null
   );
 
+  const colorScheme = {
+    BDO: ' bg-blue-900',
+    BPI: ' bg-red-900',
+  };
+
   const checkWhichAccount = () => {
     if (!User?.user || !System?.bankSelected) {
       console.log('err');
@@ -59,10 +64,26 @@ const BankPage: React.FC<Prop> = ({}) => {
   } else if (System?.bankSelected && User) {
     return (
       <div>
-        <div className="phone:mb-2 laptop:mb-9">
-          <span className="text-u_darkblue phone:text-lg laptop:text-3xl">
-            Connected to {System?.bankSelected.bankName}
-          </span>
+        <div className="flex flex-row justify-between">
+          <div className="phone:mb-2 laptop:mb-9">
+            <span className="text-u_darkblue phone:text-lg laptop:text-3xl">
+              Connected to {System?.bankSelected.bankName}
+            </span>
+          </div>
+
+          <div
+            className={
+              'text-white p-3 rounded-lg w-[150px] h-12' +
+              colorScheme[
+                System.bankSelected.bankName as keyof typeof colorScheme
+              ]
+            }
+          >
+            <DropDownMenu
+              setAccountForBankPage={setAccountForBank}
+              isAccountAndPassMatched={passwordsAreMatched}
+            />
+          </div>
         </div>
 
         <div className="bg-white phone:w-[280px] laptop:w-[600px] rounded-lg phone:p-2 laptop:p-6 flex flex-row items-center justify-between">
@@ -122,6 +143,55 @@ const BankPage: React.FC<Prop> = ({}) => {
   } else {
     return <div>Bank not found!</div>;
   }
+};
+
+interface Prop {
+  setAccountForBankPage: React.Dispatch<
+    React.SetStateAction<AccountModel | null>
+  >;
+  isAccountAndPassMatched: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const DropDownMenu: React.FC<Prop> = ({
+  setAccountForBankPage,
+  isAccountAndPassMatched,
+}) => {
+  const User = useContext(UserContext);
+  const System = useContext(SystemContext);
+
+  const [isDropdownClicked, dropdownClicked] = useState(false);
+
+  const configureBankPageUI = (account: AccountModel) => {
+    setAccountForBankPage(account);
+    isAccountAndPassMatched(false);
+  };
+
+  return (
+    <div className="flex flex-col items-center">
+      <button onClick={() => dropdownClicked(!isDropdownClicked)}>
+        Change Account
+      </button>
+
+      {isDropdownClicked && (
+        <div
+          className="bg-u_skyblue p-2 rounded absolute w-[130px] mt-7"
+          id="hover-element"
+        >
+          {User!.user.accounts.map((account) => (
+            <div
+              key={account.accountNumber}
+              className="flex flex-col hover:bg-u_darkblue"
+              onClick={() => configureBankPageUI(account)}
+            >
+              {account.bank == System!.bankSelected.bankName && (
+                <button>{account.accountNumber}</button>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default BankPage;
