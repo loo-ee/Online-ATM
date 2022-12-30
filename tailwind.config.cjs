@@ -10,6 +10,8 @@ module.exports = {
         primary: "#457b9d",
         secondary: "#a8dadc",
         tertiary: "#e63946",
+        primarySupport: "#03045E",
+        secondarySupport: "#1b4965",
         u_gray: "#f2f5f6",
         u_darkblue: "#180a6b",
         u_skyblue: "#5993ef",
@@ -31,5 +33,7 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar')
+  ],
 }
