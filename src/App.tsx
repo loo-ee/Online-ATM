@@ -40,7 +40,7 @@ function App() {
   }, []);
 
   return (
-    <div id="App" className="flex flex-col mb-10 items-center">
+    <div id="App" className="flex flex-col mb-10 items-center font-primary">
       <BrowserRouter>
         <Routes>
           <Route
