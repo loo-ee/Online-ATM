@@ -11,7 +11,7 @@ const Controls: React.FC<Prop> = ({}) => {
   };
 
   return (
-    <div className="flex-col w-32 rounded-lg h-80 laptop:flex tablet:flex phone:hidden items-center justify-evenly p-3">
+    <div className="flex phone:flex-row laptop:flex-col phone:w-64 laptop:w-32 rounded-lg h-80 items-center justify-evenly p-3">
       <div
         className="w-24 h-32 border-4 border-black items-center bg-u_gray p-3 rounded-lg"
         onClick={goToMessages}

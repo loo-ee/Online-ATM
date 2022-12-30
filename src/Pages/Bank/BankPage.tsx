@@ -39,9 +39,7 @@ const BankPage: React.FC<Prop> = ({}) => {
     User.user.accounts.map((account) => {
       if (account.bank == System.bankSelected.bankName) {
         setAccountForBank(account);
-        console.log('test');
-      } else {
-        console.log('none');
+        return;
       }
     });
   };

@@ -19,7 +19,7 @@ const BankCard: React.FC<Prop> = ({ bank }) => {
   return (
     <div
       id={System?.bankSelected.bankName}
-      className="bg-white m-5 phone:w-64 tablet:w-80 p-3 rounded-lg"
+      className="bg-u_gray m-5 phone:w-64 tablet:w-80 p-3 rounded-lg"
     >
       <div className="flex flex-row justify-between">
         <div className="flex flex-col phone:w-60">
