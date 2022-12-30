@@ -33,7 +33,7 @@ module.exports = {
       },
 
       fontFamily: {
-        primary: ['Raleway', 'sans-serif']
+        primary: ['Rubik', 'sans-serif']
       }
     },
   },
