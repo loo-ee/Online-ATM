@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   AccountModel,
+  AccountRequest,
   ChangePinRequest,
   MessageModel,
   UserModel,
@@ -141,6 +142,15 @@ export const findAccount = async (accountNumber: number) => {
     return res.data;
   } catch (error) {
     return false;
+  }
+};
+
+export const createAccountCreationRequest = async (request: AccountRequest) => {
+  try {
+    await api.post('create-account-req/', request);
+    return true;
+  } catch (error) {
+    return null;
   }
 };
 

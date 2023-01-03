@@ -1,8 +1,10 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { createAccountCreationRequest } from '../../adapter/userAdapter';
 import { SystemContext } from '../../contexts/SystemContext';
 import { UserContext, nullAccount } from '../../contexts/UserContext';
 import NumPad from '../../util/NumPad';
-import { AccountModel } from '../../util/systemConfig';
+import { AccountModel, AccountRequest } from '../../util/systemConfig';
 import ModeSelection from './ModeSelection';
 import Transaction from './Transaction';
 
@@ -17,6 +19,10 @@ const BankPage: React.FC<Prop> = ({}) => {
   const [accountForBank, setAccountForBank] = useState<AccountModel | null>(
     null
   );
+  const navigator = useNavigate();
+
+  const usernameInput = useRef<HTMLInputElement>(null);
+  const emailInput = useRef<HTMLInputElement>(null);
 
   const colorScheme = {
     BDO: {
@@ -47,7 +53,15 @@ const BankPage: React.FC<Prop> = ({}) => {
 
   useEffect(() => {
     checkWhichAccount();
+    checkIfNoAccount();
   }, []);
+
+  const checkIfNoAccount = () => {
+    if (User?.user.accounts.length == 0) {
+      setHeaderText('Create Account');
+      setWantToCreateAccount(true);
+    }
+  };
 
   const validateLogin = (pin: number) => {
     const status = pin == accountForBank!.pin;
@@ -65,21 +79,63 @@ const BankPage: React.FC<Prop> = ({}) => {
   };
 
   const toggleAccountCreation = () => {
-    setWantToCreateAccount(!wantToCreateAccount);
-    console.log('toggled');
+    setWantToCreateAccount(true);
+  };
+
+  const cancelAccountCreation = () => {
+    if (User?.user.accounts.length != 0) {
+      setWantToCreateAccount(false);
+      setHeaderText('Please enter your pin');
+    } else {
+      navigator(-1);
+    }
+  };
+
+  const makeAccountCreationRequest = async () => {
+    if (!usernameInput.current!.value || !emailInput.current!.value) {
+      setHeaderText('Please Fill All Fields');
+
+      setTimeout(() => {
+        setHeaderText('Create Account');
+      }, 5000);
+
+      return;
+    }
+
+    const newAccount: AccountRequest = {
+      bank: System!.bankSelected.bankName,
+      username: usernameInput.current!.value,
+      userEmail: emailInput.current!.value,
+    };
+
+    await createAccountCreationRequest(newAccount);
   };
 
   if (wantToCreateAccount) {
     return (
-      <div className="phone:p-2 laptop:p-4">
-        <div className="text-center">
-          <span className="phone:text-2xl">Create Account</span>
+      <div className="phone:p-2 laptop:p-4 flex flex-col justify-center laptop:h-[550px]">
+        <div className="text-center flex flex-row items-center justify-end">
+          <span className="phone:text-2xl">{headerText}</span>
+          <img
+            src={
+              new URL(
+                `../../assets/images/${System?.bankSelected.thumbnail.slice(
+                  1,
+                  System.bankSelected.thumbnail.length
+                )}`,
+                import.meta.url
+              ).href
+            }
+            className="phone:w-10 phone:h-10 laptop:w-20 laptop:h-20 rounded ml-5"
+            alt=""
+          />
         </div>
 
         <div className="phone:text-sm laptop:text-xl phone:mt-3 laptop:mt-5">
           <div className="flex flex-row items-center phone:my-1 laptop:my-3 justify-between">
             <label htmlFor="username">Username: </label>
             <input
+              ref={usernameInput}
               id="username"
               type="text"
               placeholder="Ex. Jann"
@@ -90,6 +146,7 @@ const BankPage: React.FC<Prop> = ({}) => {
           <div className="flex flex-row items-center phone:my-1 laptop:my-3 justify-between">
             <label htmlFor="email">Email: </label>
             <input
+              ref={emailInput}
               id="email"
               type="text"
               placeholder="Ex. jann@gmail.com"
@@ -97,12 +154,28 @@ const BankPage: React.FC<Prop> = ({}) => {
             />
           </div>
         </div>
+
+        <div className="flex flex-row justify-between">
+          <button
+            onClick={makeAccountCreationRequest}
+            className="bg-green-500 border-2 border-black laptop:w-[140px] rounded-lg laptop:p-4 laptop:mt-5 self-center"
+          >
+            <span className="laptop:text-xl text-white">Submit</span>
+          </button>
+
+          <button
+            onClick={cancelAccountCreation}
+            className="bg-red-500 border-2 border-black laptop:w-[140px] rounded-lg laptop:p-4 laptop:mt-5 self-center"
+          >
+            <span className="laptop:text-xl text-white">Cancel</span>
+          </button>
+        </div>
       </div>
     );
   } else if (System?.bankSelected && User) {
     return (
       <div className="phone:p-2 laptop:p-4">
-        <div className="flex flex-row justify-evenly items-start border-2">
+        <div className="flex flex-row justify-evenly items-start">
           <div
             className={
               'phone:w-[150px] laptop:w-[300px] phone:mb-2 laptop:mb-6 p-3 rounded-lg' +
