@@ -1,10 +1,17 @@
 import { useContext, useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createAccountCreationRequest } from '../../adapter/userAdapter';
+import {
+  createAccountCreationRequest,
+  createMessage,
+} from '../../adapter/userAdapter';
 import { SystemContext } from '../../contexts/SystemContext';
 import { UserContext, nullAccount } from '../../contexts/UserContext';
 import NumPad from '../../util/NumPad';
-import { AccountModel, AccountRequest } from '../../util/systemConfig';
+import {
+  AccountModel,
+  AccountRequest,
+  MessageModel,
+} from '../../util/systemConfig';
 import ModeSelection from './ModeSelection';
 import Transaction from './Transaction';
 
@@ -108,7 +115,27 @@ const BankPage: React.FC<Prop> = ({}) => {
       userEmail: emailInput.current!.value,
     };
 
-    await createAccountCreationRequest(newAccount);
+    const message: MessageModel = {
+      sender: 'admin',
+      receiver: User!.user.email,
+      title: 'Account Creation Request',
+      body: 'Please wait while we process your account. Thank you.',
+    };
+
+    try {
+      await createAccountCreationRequest(newAccount);
+      await createMessage(message);
+
+      setHeaderText('Request Sent');
+      setTimeout(() => {
+        setHeaderText('Redirecting...');
+      }, 2000);
+      setTimeout(() => {
+        navigator(-1);
+      }, 3000);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   if (wantToCreateAccount) {
