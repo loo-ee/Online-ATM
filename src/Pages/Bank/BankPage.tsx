@@ -13,6 +13,7 @@ const BankPage: React.FC<Prop> = ({}) => {
   const User = useContext(UserContext);
   const [arePasswordsMatched, passwordsAreMatched] = useState(false);
   const [headerText, setHeaderText] = useState('Please enter your pin');
+  const [wantToCreateAccount, setWantToCreateAccount] = useState(false);
   const [accountForBank, setAccountForBank] = useState<AccountModel | null>(
     null
   );
@@ -63,15 +64,48 @@ const BankPage: React.FC<Prop> = ({}) => {
     }, 5000);
   };
 
-  if (!User) {
-    return <div>Link Account</div>;
+  const toggleAccountCreation = () => {
+    setWantToCreateAccount(!wantToCreateAccount);
+    console.log('toggled');
+  };
+
+  if (wantToCreateAccount) {
+    return (
+      <div className="phone:p-2 laptop:p-4">
+        <div className="text-center">
+          <span className="phone:text-2xl">Create Account</span>
+        </div>
+
+        <div className="phone:text-sm laptop:text-xl phone:mt-3 laptop:mt-5">
+          <div className="flex flex-row items-center phone:my-1 laptop:my-3 justify-between">
+            <label htmlFor="username">Username: </label>
+            <input
+              id="username"
+              type="text"
+              placeholder="Ex. Jann"
+              className="text-black phone:p-1 laptop:p-3 rounded phone:w-32 phone:text-xs laptop:text-lg laptop:w-auto"
+            />
+          </div>
+
+          <div className="flex flex-row items-center phone:my-1 laptop:my-3 justify-between">
+            <label htmlFor="email">Email: </label>
+            <input
+              id="email"
+              type="text"
+              placeholder="Ex. jann@gmail.com"
+              className="text-black phone:p-1 laptop:p-3 rounded phone:w-32 phone:text-xs laptop:text-lg laptop:w-auto"
+            />
+          </div>
+        </div>
+      </div>
+    );
   } else if (System?.bankSelected && User) {
     return (
-      <div>
-        <div className="flex flex-row justify-between items-start">
+      <div className="phone:p-2 laptop:p-4">
+        <div className="flex flex-row justify-evenly items-start border-2">
           <div
             className={
-              'phone:mb-2 laptop:mb-6 p-3 rounded-lg' +
+              'phone:w-[150px] laptop:w-[300px] phone:mb-2 laptop:mb-6 p-3 rounded-lg' +
               colorScheme[
                 System.bankSelected.bankName as keyof typeof colorScheme
               ].primaryColor
@@ -96,11 +130,25 @@ const BankPage: React.FC<Prop> = ({}) => {
               colorScheme={colorScheme}
             />
           </div>
+
+          <div
+            className={
+              'text-white p-3 rounded-lg phone:w-[50px] text-center laptop:w-[130px] h-12' +
+              colorScheme[
+                System.bankSelected.bankName as keyof typeof colorScheme
+              ].primaryColor
+            }
+          >
+            <button onClick={toggleAccountCreation}>
+              <img src="" alt="" className="phone:flex laptop:hidden" />
+              <span className="phone:hidden laptop:flex">Add Account</span>
+            </button>
+          </div>
         </div>
 
         <div
           className={
-            'phone:w-[280px] laptop:w-[600px] rounded-lg phone:p-2 laptop:p-6 flex flex-row items-center justify-between' +
+            'phone:w-[280px] laptop:w-[600px] mt-2 rounded-lg phone:p-2 laptop:p-6 flex flex-row items-center justify-between' +
             colorScheme[
               System.bankSelected.bankName as keyof typeof colorScheme
             ].primaryColor
