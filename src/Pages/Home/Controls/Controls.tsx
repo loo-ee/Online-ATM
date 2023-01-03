@@ -26,7 +26,7 @@ const Controls: React.FC<Prop> = ({}) => {
   };
 
   return (
-    <div className="flex phone:flex-row laptop:flex-col phone:w-96 laptop:w-32 rounded-lg phone:h-[150px] laptop:h-[600px] items-center justify-start p-3">
+    <div className="flex phone:flex-row laptop:flex-col phone:w-96 laptop:w-32 rounded-lg phone:h-[150px] laptop:h-[600px] items-center justify-center p-3">
       <SettingsButton
         text="Messages"
         imgSrc="message.png"
@@ -65,7 +65,7 @@ export const SettingsButton: React.FC<SettingsButtonProp> = ({
 }) => {
   return (
     <div
-      className="text-center phone:w-20 phone:h-28 laptop:w-24 laptop:h-32 border-4 border-black items-center bg-u_gray p-3 rounded-lg"
+      className="text-center phone:w-20 phone:h-28 laptop:w-24 laptop:h-32 mx-1 my-1 border-4 border-black items-center bg-u_gray p-3 rounded-lg"
       onClick={operation}
     >
       <img

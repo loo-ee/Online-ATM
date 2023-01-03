@@ -164,7 +164,7 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
                     placeholder={`${request!.userEmail}, your ${
                       request?.bank
                     } account has been created successfully.`}
-                    className="text-black laptop:w-[250px] phone:p-1 laptop:p-3 rounded phone:w-32 phone:text-xs laptop:text-lg"
+                    className="text-black laptop:w-[238px] phone:p-1 laptop:p-3 rounded phone:w-32 phone:text-xs laptop:text-lg"
                   />
                 </div>
               </div>

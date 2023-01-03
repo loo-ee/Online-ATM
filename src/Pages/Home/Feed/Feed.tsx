@@ -25,7 +25,7 @@ const Feed: React.FC<Prop> = ({}) => {
             Banks Linked
           </span>
         </div>
-        <div className="grid laptop:grid-flow-col overflow-x-scroll phone:h-[400px] phone:w-[3000px] tablet:h-[300px] tablet:w-[650px] phone:grid-flow-row phone:justify-center laptop:justify-start">
+        <div className="grid laptop:grid-flow-col overflow-x-scroll phone:h-[400px] phone:w-[3000px] tablet:h-[300px] tablet:w-[650px] phone:grid-flow-row phone:justify-center laptop:justify-start scrollbar-thin">
           {System?.banks.map((bank) => (
             <BankCard bank={bank} key={bank.bankName} />
           ))}
