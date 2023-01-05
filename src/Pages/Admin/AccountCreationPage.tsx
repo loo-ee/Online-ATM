@@ -227,6 +227,7 @@ const RequestCard: React.FC<RequestCardProp> = ({
   const bgColor = {
     BDO: 'bg-blue-900',
     BPI: 'bg-red-900',
+    LANDBANK: 'bg-green-700',
   };
 
   const prepareToCreateAccount = () => {
@@ -255,7 +256,7 @@ const RequestCard: React.FC<RequestCardProp> = ({
 
       <div className="flex flex-row mt-5 justify-evenly">
         <button
-          className="bg-green-600 p-2 rounded w-24"
+          className="bg-green-500 p-2 rounded w-24"
           onClick={prepareToCreateAccount}
         >
           Check

@@ -40,6 +40,10 @@ const BankPage: React.FC<Prop> = ({}) => {
       primaryColor: ' bg-tertiary',
       secondaryColor: ' bg-red-400',
     },
+    LANDBANK: {
+      primaryColor: ' bg-green-600',
+      secondaryColor: ' bg-green-400',
+    },
   };
 
   const checkWhichAccount = () => {
@@ -87,6 +91,7 @@ const BankPage: React.FC<Prop> = ({}) => {
 
   const toggleAccountCreation = () => {
     setWantToCreateAccount(true);
+    setHeaderText('Create Account');
   };
 
   const cancelAccountCreation = () => {
@@ -165,7 +170,7 @@ const BankPage: React.FC<Prop> = ({}) => {
               ref={usernameInput}
               id="username"
               type="text"
-              placeholder="Ex. Jann"
+              placeholder="Ex. jann"
               className="text-black phone:p-1 laptop:p-3 rounded phone:w-32 phone:text-xs laptop:text-lg laptop:w-auto"
             />
           </div>
@@ -323,6 +328,10 @@ interface DropDownMenuProp {
       secondaryColor: string;
     };
     BPI: {
+      primaryColor: string;
+      secondaryColor: string;
+    };
+    LANDBANK: {
       primaryColor: string;
       secondaryColor: string;
     };

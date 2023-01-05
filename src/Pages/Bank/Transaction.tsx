@@ -53,7 +53,7 @@ const Transaction: React.FC<Prop> = ({ account }) => {
       sender: 'Admin',
       receiver: account.accountNumber.toString(),
       title: 'Account Withdrawal Status',
-      body: `You have successfully withdrawed ${deduction} to your account [${account.accountNumber}].`,
+      body: `You have successfully withdrawn ${deduction} from your account [${account.accountNumber}].`,
     };
 
     await createMessage(message);
