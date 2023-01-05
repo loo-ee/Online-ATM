@@ -47,7 +47,7 @@ const BankCard: React.FC<Prop> = ({ bank }) => {
         <span className="text-u_darkblue text-xl">Active</span>
         <button
           onClick={onBankSelect}
-          className="border-u_gray bg-u_darkblue text-u_gray p-2 rounded-lg w-24"
+          className="border-u_gray bg-u_darkblue text-u_gray p-2 rounded-lg w-24 phone:mt-2 laptop:mt-9"
         >
           Open
         </button>

@@ -16,12 +16,17 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
   const [isReadyForChange, setIsReadyForChange] = useState(false);
   const [request, setRequest] = useState<AccountRequest>();
   const [colorScheme, setColorScheme] = useState('');
+  const [randomAccountNumber, setRandomAccountNumber] = useState(0);
   const bankField = useRef<HTMLInputElement>(null);
   const usernameField = useRef<HTMLInputElement>(null);
   const accountNumberField = useRef<HTMLInputElement>(null);
   const pinField = useRef<HTMLInputElement>(null);
   const messageField = useRef<HTMLTextAreaElement>(null);
   const navigator = useNavigate();
+
+  useEffect(() => {
+    setRandomAccountNumber(getRandomAccountNumber());
+  }, []);
 
   const approveAccountCreation = async () => {
     validateFields();
@@ -65,6 +70,10 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
       if (currentField.current!.value == '')
         currentField.current!.value = currentField.current!.placeholder;
     });
+  };
+
+  const getRandomAccountNumber = () => {
+    return Math.floor(Math.random() * (999999999 - 111111111)) + 111111111;
   };
 
   return (
@@ -128,7 +137,7 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
                     ref={accountNumberField}
                     type="number"
                     id="account-number"
-                    placeholder="000"
+                    placeholder={randomAccountNumber.toString()}
                     className="text-black phone:p-1 laptop:p-3 rounded phone:w-32 phone:text-xs laptop:text-lg laptop:w-auto"
                   />
                 </div>
