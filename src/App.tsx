@@ -11,6 +11,7 @@ import { validateSession, getLinkedAccounts } from './adapter/userAdapter';
 import { SystemContext } from './contexts/SystemContext';
 import { UserContext } from './contexts/UserContext';
 import AccountCreationPage from './Pages/Admin/AccountCreationPage';
+import AccountEditPage from './Pages/Admin/AccountEditPage';
 import AdminFeed from './Pages/Admin/AdminFeed';
 import ChangePinPage from './Pages/Admin/ChangePinPage';
 import BankPage from './Pages/Bank/BankPage';
@@ -65,7 +66,7 @@ function App() {
 
               <Route path="pin-change" element={<ChangePinPage />}></Route>
 
-              <Route path="account-edit/"></Route>
+              <Route path="account-edit/" element={<AccountEditPage />}></Route>
             </Route>
 
             <Route path="vendor/" element={<BankPage />}></Route>

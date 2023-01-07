@@ -29,12 +29,20 @@ const AccountsPanel: React.FC<Prop> = ({}) => {
 
     if (account) {
       setFoundAccount(account);
+    } else {
+      setHeaderText('Acc not found!');
+
+      setTimeout(() => {
+        setHeaderText('Search Account');
+      }, 5000);
     }
   };
 
   const editAccount = () => {
+    if (!foundAccount) return;
+
     System?.setAccountSelected(foundAccount);
-    navigator('admin/pin-change/');
+    navigator('admin/account-edit/');
   };
 
   return (
