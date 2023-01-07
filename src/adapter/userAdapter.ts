@@ -105,7 +105,7 @@ export const login = async (username: string, password: string) => {
 export const validateSession = async () => {
   const token = localStorage.getItem('token');
   const authApi = axios.create({
-    baseURL: 'https://online-atm-backend.vercel.app/',
+    baseURL: 'https://online-atm-backend-ewer.vercel.app/',
     headers: {
       Authorization: `Token ${token}`,
     },

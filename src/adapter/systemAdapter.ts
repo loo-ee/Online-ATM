@@ -2,7 +2,7 @@ import axios from 'axios';
 import { BankModel } from '../util/systemConfig';
 
 const api = axios.create({
-  baseURL: 'https://online-atm-backend.vercel.app/',
+  baseURL: 'https://online-atm-backend-ewer.vercel.app/',
   headers: {
     'Content-type': 'application/json',
   },
