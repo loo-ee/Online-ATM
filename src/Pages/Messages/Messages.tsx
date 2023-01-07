@@ -53,8 +53,8 @@ const Inbox: React.FC<InboxProp> = ({ receiver }) => {
         </span>
 
         <div className="h-[300px] mt-3 phone:overflow-y-scroll laptop:overflow-x-scroll phone:grid-flow-row laptop:grid-flow-col grid scrollbar-thin">
-          {messages?.map((message) => (
-            <MessageCard key={message.body} message={message} />
+          {messages?.map((message, index) => (
+            <MessageCard key={index} message={message} />
           ))}
         </div>
       </div>

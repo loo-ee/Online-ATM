@@ -11,7 +11,6 @@ interface Prop {}
 
 const AdminFeed: React.FC<Prop> = ({}) => {
   const Admin = useContext(AdminContext);
-  const [page, setPage] = useState('account-creation');
   const navigator = useNavigate();
 
   useEffect(() => {
@@ -20,10 +19,8 @@ const AdminFeed: React.FC<Prop> = ({}) => {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      navigator(page + '/');
-    }, 500);
-  }, [page]);
+    navigator('account-creation/');
+  }, []);
 
   const fetchAccountRequests = async () => {
     const requests = await getAccountRequests();
@@ -38,7 +35,9 @@ const AdminFeed: React.FC<Prop> = ({}) => {
   return (
     <div className="flex flex-col items-center self-start w-full">
       <div className="self-center">
-        <span className="phone:text-2xl laptop:text-4xl">Admin Page</span>
+        <span className="phone:text-2xl laptop:text-4xl font-semibold">
+          Admin Page
+        </span>
       </div>
 
       <Outlet />

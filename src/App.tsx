@@ -64,6 +64,8 @@ function App() {
               ></Route>
 
               <Route path="pin-change" element={<ChangePinPage />}></Route>
+
+              <Route path="account-edit/"></Route>
             </Route>
 
             <Route path="vendor/" element={<BankPage />}></Route>

@@ -1,10 +1,16 @@
+import { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
+import { UserContext } from '../../contexts/UserContext';
+import AccountsPanel from '../Admin/AccountsPanel';
 import Controls from './Controls/Controls';
 import Header from './Header';
+import Info from './Info/Info';
 
 interface Prop {}
 
 const HomePage: React.FC<Prop> = ({}) => {
+  const User = useContext(UserContext);
+
   return (
     <>
       <Header />
@@ -18,8 +24,8 @@ const HomePage: React.FC<Prop> = ({}) => {
         >
           <Outlet />
         </div>
-        <div className="w-96 h-80 border-2 laptop:flex tablet:hidden phone:hidden">
-          info
+        <div className="phone:w-[300px] laptop:w-[400px] phone:mt-4 laptop:mt-0 bg-secondary border-4 border-black rounded-lg p-4 justify-center">
+          {User?.user.isAdmin ? <AccountsPanel /> : <Info />}
         </div>
 
         <div className="phone:flex laptop:hidden mt-2">

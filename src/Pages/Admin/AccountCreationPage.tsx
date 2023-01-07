@@ -197,7 +197,7 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
           </div>
         </>
       ) : (
-        <div>
+        <div className="flex flex-col items-center">
           <span className="phone:text-xl laptop:text-3xl">
             Account Creation Requests
           </span>
@@ -234,9 +234,9 @@ const RequestCard: React.FC<RequestCardProp> = ({
   const navigator = useNavigate();
 
   const bgColor = {
-    BDO: 'bg-blue-900',
-    BPI: 'bg-red-900',
-    LANDBANK: 'bg-green-700',
+    BDO: ' bg-blue-900',
+    BPI: ' bg-red-900',
+    LANDBANK: ' bg-green-700',
   };
 
   const prepareToCreateAccount = () => {
@@ -250,7 +250,7 @@ const RequestCard: React.FC<RequestCardProp> = ({
   return (
     <div
       className={
-        'laptop:mx-5 my-3 p-4 text-white rounded-lg phone:w-[250px] tablet:w-[300px] ' +
+        'laptop:mx-5 my-3 p-4 text-white rounded-lg phone:w-[250px] tablet:w-[300px]' +
         bgColor[requestBody.bank as keyof typeof bgColor]
       }
     >
