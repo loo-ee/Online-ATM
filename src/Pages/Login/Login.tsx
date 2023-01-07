@@ -49,7 +49,7 @@ const Login: React.FC<Prop> = ({}) => {
 
     if (User?.user.username != '???') {
       if (User?.user.isAdmin) {
-        navigator(baseUrl + 'admin');
+        navigator(baseUrl + 'admin/account-creation/');
         return;
       }
       navigator(baseUrl + 'feed/');
@@ -83,7 +83,7 @@ const Login: React.FC<Prop> = ({}) => {
         accounts: linkedAccounts,
       });
 
-      if (user.isAdmin) navigator(baseUrl + 'admin/');
+      if (user.isAdmin) navigator(baseUrl + 'admin/account-creation/');
       else navigator(baseUrl + 'feed/');
     });
 
