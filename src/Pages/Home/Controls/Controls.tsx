@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../contexts/UserContext';
 import { baseUrl } from '../../../util/systemConfig';
@@ -8,6 +8,7 @@ interface Prop {}
 const Controls: React.FC<Prop> = ({}) => {
   const User = useContext(UserContext);
   const navigator = useNavigate();
+  const [isAccountCreationMode, setIsAccountCreationMode] = useState(true);
 
   const goToMessages = () => {
     navigator(baseUrl + 'messages/');
@@ -25,8 +26,23 @@ const Controls: React.FC<Prop> = ({}) => {
     navigator(baseUrl + 'feed/');
   };
 
+  const switchAdminModes = () => {
+    setIsAccountCreationMode(!isAccountCreationMode);
+
+    if (isAccountCreationMode) navigator(baseUrl + 'admin/account-creation/');
+    else navigator(baseUrl + 'admin/pin-change/');
+  };
+
   return (
     <div className="flex phone:flex-row laptop:flex-col phone:w-96 laptop:w-32 rounded-lg phone:h-[150px] laptop:h-[600px] items-center justify-center p-3">
+      {User?.user.isAdmin && (
+        <SettingsButton
+          text="Switch Mode"
+          imgSrc="swap.png"
+          operation={switchAdminModes}
+        />
+      )}
+
       <SettingsButton
         text="Messages"
         imgSrc="message.png"

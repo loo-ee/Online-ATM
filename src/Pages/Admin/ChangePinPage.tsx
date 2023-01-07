@@ -69,7 +69,7 @@ const ChangePinPage: React.FC<Prop> = ({}) => {
     <div className="mt-10 flex flex-col items-center phone:w-[250px] tablet:w-[500px] laptop:w-[700px]">
       {isReadyForChange ? (
         <>
-          <span className="phone:text-xl laptop:text-3xl">
+          <span className="phone:text-xl laptop:text-3xl self-center">
             Account Pin Change
           </span>
 
@@ -151,8 +151,8 @@ const ChangePinPage: React.FC<Prop> = ({}) => {
           </div>
         </>
       ) : (
-        <div>
-          <span className="phone:text-xl laptop:text-3xl">
+        <div className="flex flex-col">
+          <span className="phone:text-xl laptop:text-3xl self-center">
             Change Pin Requests
           </span>
 
