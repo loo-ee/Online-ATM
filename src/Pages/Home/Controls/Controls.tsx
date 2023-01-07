@@ -9,6 +9,7 @@ const Controls: React.FC<Prop> = ({}) => {
   const User = useContext(UserContext);
   const navigator = useNavigate();
   const [isAccountCreationMode, setIsAccountCreationMode] = useState(false);
+  const [adminMode, setAdminMode] = useState('Acc Creation');
 
   const goToMessages = () => {
     navigator(baseUrl + 'messages/');
@@ -27,8 +28,13 @@ const Controls: React.FC<Prop> = ({}) => {
   };
 
   const switchAdminModes = () => {
-    if (isAccountCreationMode) navigator(baseUrl + 'admin/account-creation/');
-    else navigator(baseUrl + 'admin/pin-change/');
+    if (isAccountCreationMode) {
+      navigator(baseUrl + 'admin/account-creation/');
+      setAdminMode('Pin Change');
+    } else {
+      navigator(baseUrl + 'admin/pin-change/');
+      setAdminMode('Acc Creation');
+    }
 
     setIsAccountCreationMode(!isAccountCreationMode);
   };
@@ -37,17 +43,19 @@ const Controls: React.FC<Prop> = ({}) => {
     <div className="flex phone:flex-row laptop:flex-col phone:w-96 laptop:w-32 rounded-lg phone:h-[150px] laptop:h-[600px] items-center justify-center p-3">
       {User?.user.isAdmin && (
         <SettingsButton
-          text="Switch Mode"
+          text={adminMode}
           imgSrc="swap.png"
           operation={switchAdminModes}
         />
       )}
 
-      <SettingsButton
-        text="Messages"
-        imgSrc="message.png"
-        operation={goToMessages}
-      />
+      {!User?.user.isAdmin && (
+        <SettingsButton
+          text="Messages"
+          imgSrc="message.png"
+          operation={goToMessages}
+        />
+      )}
 
       <SettingsButton
         text="Settings"
