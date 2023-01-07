@@ -48,7 +48,9 @@ const AccountsPanel: React.FC<Prop> = ({}) => {
   return (
     <div className="flex flex-col items-center laptop:w-[350px]">
       <div>
-        <span className="laptop:text-2xl font-semibold">{headerText}</span>
+        <span className="phone:text-lg laptop:text-2xl font-semibold">
+          {headerText}
+        </span>
       </div>
 
       <div className="laptop:mt-4">
@@ -72,11 +74,11 @@ const AccountsPanel: React.FC<Prop> = ({}) => {
       {foundAccount && (
         <div
           className={
-            'phone:w-[250px] laptop:w-[300px] flex flex-col text-white rounded mt-3 p-4' +
+            'phone:w-[250px] laptop:w-[300px] border-4 border-black flex flex-col text-white rounded-lg mt-3 p-4' +
             bgColor[foundAccount.bank as keyof typeof bgColor]
           }
         >
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row justify-between items-baseline">
             <span className="phone:text-xl laptop:text-2xl">
               {foundAccount.bank}
             </span>
