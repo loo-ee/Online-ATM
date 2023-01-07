@@ -8,7 +8,7 @@ interface Prop {}
 const Controls: React.FC<Prop> = ({}) => {
   const User = useContext(UserContext);
   const navigator = useNavigate();
-  const [isAccountCreationMode, setIsAccountCreationMode] = useState(true);
+  const [isAccountCreationMode, setIsAccountCreationMode] = useState(false);
 
   const goToMessages = () => {
     navigator(baseUrl + 'messages/');
@@ -27,10 +27,10 @@ const Controls: React.FC<Prop> = ({}) => {
   };
 
   const switchAdminModes = () => {
-    setIsAccountCreationMode(!isAccountCreationMode);
-
     if (isAccountCreationMode) navigator(baseUrl + 'admin/account-creation/');
     else navigator(baseUrl + 'admin/pin-change/');
+
+    setIsAccountCreationMode(!isAccountCreationMode);
   };
 
   return (

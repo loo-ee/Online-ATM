@@ -66,7 +66,7 @@ const ChangePinPage: React.FC<Prop> = ({}) => {
     console.log('Change pin succesful');
   };
   return (
-    <div className="mt-10 flex flex-col items-center phone:w-[250px] tablet:w-[500px] laptop:w-[700px]">
+    <div className="phone:mt-5 laptop:mt-10 flex flex-col items-center phone:w-[250px] tablet:w-[500px] laptop:w-[700px]">
       {isReadyForChange ? (
         <>
           <span className="phone:text-xl laptop:text-3xl self-center">
@@ -74,7 +74,7 @@ const ChangePinPage: React.FC<Prop> = ({}) => {
           </span>
 
           <div className="flex phone:flex-col justify-center laptop:flex-row items-center">
-            <div className="flex flex-col phone:w-[250px] tablet:w-[300px] laptop:w-[500px] my-5 justify-center text-white self-center rounded p-5  bg-u_darkblue">
+            <div className="flex flex-col phone:w-[250px] tablet:w-[300px] laptop:w-[500px] phone:my-3 laptop:my-5 justify-center text-white self-center rounded p-5  bg-u_darkblue">
               <span className="">Fill Details</span>
 
               <div className="mt-4">
@@ -156,7 +156,7 @@ const ChangePinPage: React.FC<Prop> = ({}) => {
             Change Pin Requests
           </span>
 
-          <div className="mt-5 grid laptop:grid-cols-2">
+          <div className="phone:mt-3 laptop:mt-5 grid laptop:grid-cols-2">
             {Admin?.changePinRequests.map((req) => (
               <RequestCard
                 key={req.accountNumber}

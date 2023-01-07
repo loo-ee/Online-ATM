@@ -77,10 +77,10 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
   };
 
   return (
-    <div className="mt-10 flex flex-col items-center phone:w-[250px] tablet:w-[500px] laptop:w-[700px]">
+    <div className="phone:mt-5 laptop:mt-10 flex flex-col items-center phone:w-[250px] tablet:w-[500px] laptop:w-[700px]">
       {isReadyForChange ? (
         <>
-          <span className="phone:text-xl laptop:text-3xl">
+          <span className="phone:text-xl laptop:text-3xl text-center">
             Account Creation
           </span>
 
@@ -198,7 +198,7 @@ const AccountCreationPage: React.FC<Prop> = ({}) => {
         </>
       ) : (
         <div className="flex flex-col items-center">
-          <span className="phone:text-xl laptop:text-3xl">
+          <span className="phone:text-xl laptop:text-3xl text-center">
             Account Creation Requests
           </span>
           <div className="mt-5 grid laptop:grid-cols-2">
