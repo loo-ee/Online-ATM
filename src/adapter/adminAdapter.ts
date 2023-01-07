@@ -2,7 +2,7 @@ import axios from 'axios';
 import { AccountModel, AccountRequest } from '../util/systemConfig';
 
 const api = axios.create({
-  baseURL: 'http://18.181.193.249/',
+  baseURL: 'https://online-atm-backend.vercel.app/',
   headers: {
     'Content-type': 'application/json',
   },
