@@ -8,7 +8,7 @@ import {
 } from '../util/systemConfig';
 
 const api = axios.create({
-  baseURL: ' http://127.0.0.1:8000/',
+  baseURL: 'https://louie-s-atm-program-backend.vercel.app/',
   headers: {
     'Content-type': 'application/json',
   },
@@ -105,7 +105,7 @@ export const login = async (username: string, password: string) => {
 export const validateSession = async () => {
   const token = localStorage.getItem('token');
   const authApi = axios.create({
-    baseURL: 'http://louie-s-atm-program-backend.vercel.app/',
+    baseURL: 'https://louie-s-atm-program-backend.vercel.app/',
     headers: {
       Authorization: `Token ${token}`,
     },
