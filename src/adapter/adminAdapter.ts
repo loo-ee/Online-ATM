@@ -2,7 +2,7 @@ import axios from 'axios';
 import { AccountModel, AccountRequest } from '../util/systemConfig';
 
 const api = axios.create({
-  baseURL: 'http://43.206.230.229/',
+  baseURL: 'http://127.0.0.1:8000/',
   headers: {
     'Content-type': 'application/json',
   },
