@@ -15,8 +15,9 @@ const Controls: React.FC<Prop> = ({}) => {
     navigator(baseUrl + 'messages/');
   };
 
-  const goToSettings = () => {
-    console.log('setttings');
+  const logout = () => {
+    localStorage.clear();
+    navigator(0);
   };
 
   const goBack = () => {
@@ -57,11 +58,7 @@ const Controls: React.FC<Prop> = ({}) => {
         />
       )}
 
-      <SettingsButton
-        text="Settings"
-        imgSrc="settings.png"
-        operation={goToSettings}
-      />
+      <SettingsButton text="Logout" imgSrc="settings.png" operation={logout} />
 
       <SettingsButton
         text="Go Back"

@@ -18,12 +18,12 @@ interface Prop {
 
 const Transaction: React.FC<Prop> = ({ account }) => {
   const System = useContext(SystemContext);
-  const User = useContext(UserContext);
 
-  const [finalAmount, setFinalAmount] = useState(0);
+  const [withdrawHeaderText, setWithdrawHeaderText] = useState(
+    'Input amount to withdraw'
+  );
   const [isAccountFound, setIsAccountFound] = useState(false);
   const [amountToTransfer, setAmountToTransfer] = useState(0);
-  const [accountToFind, setAccountToFind] = useState(0);
   const [willSendMoney, setWillSendMoney] = useState(false);
   const [accountToReceive, setAccountToReceive] = useState<AccountModel | null>(
     null
@@ -46,6 +46,16 @@ const Transaction: React.FC<Prop> = ({ account }) => {
   };
 
   const withdraw = async (deduction: number) => {
+    if (account.balance < deduction) {
+      setWithdrawHeaderText('Insufficient balance!');
+
+      setTimeout(() => {
+        setWithdrawHeaderText('Input amount to withdraw');
+      }, 2000);
+
+      return;
+    }
+
     account.balance -= deduction;
     await updateAccount(account);
 
@@ -115,7 +125,7 @@ const Transaction: React.FC<Prop> = ({ account }) => {
   } else if (System?.transactionMode == 'withdraw') {
     return (
       <div className="flex flex-col items-center">
-        <BankPageHeader headerText="Input amount to withdraw" />
+        <BankPageHeader headerText={withdrawHeaderText} />
         <NumPad mainOperation={withdraw} />
       </div>
     );
