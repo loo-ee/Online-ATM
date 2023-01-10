@@ -34,9 +34,19 @@ const Info: React.FC<Prop> = ({}) => {
 
   return (
     <div className="laptop:p-3">
-      <div className="flex flex-col bg-primary laptop:p-4 rounded">
-        <span className="text-3xl text-white">{User?.user.username}</span>
-        <span className="text-md text-gray-200">{User?.user.email}</span>
+      <div className="flex flex-row justify-between bg-primary laptop:p-4 rounded">
+        <div className="flex flex-col">
+          <span className="text-3xl text-white">{User?.user.username}</span>
+          <span className="text-md text-gray-200">{User?.user.email}</span>
+        </div>
+
+        <img
+          src={
+            new URL('../../../assets/images/account.png', import.meta.url).href
+          }
+          className="w-[60px]"
+          alt=""
+        />
       </div>
 
       <div className="text-xs flex flex-col text-start text-white laptop:mt-2">

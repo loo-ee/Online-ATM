@@ -43,7 +43,7 @@ const Header: React.FC<Prop> = ({}) => {
           alt=""
         />
         <img
-          src={new URL('../../assets/images/pfp.jpg', import.meta.url).href}
+          src={new URL('../../assets/images/account.png', import.meta.url).href}
           className="phone:w-10 laptop:w-16 rounded-full ml-2 mt-3 phone:mx-12"
           alt=""
         />
