@@ -2,7 +2,7 @@ import axios from 'axios';
 import { BankModel } from '../util/systemConfig';
 
 const api = axios.create({
-  baseURL: 'http://127.0.0.1:8000/',
+  baseURL: 'https://online-atm.up.railway.app/',
   headers: {
     'Content-type': 'application/json',
   },
