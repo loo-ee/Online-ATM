@@ -151,7 +151,7 @@ const BankPage: React.FC<Prop> = ({}) => {
           <img
             src={
               new URL(
-                `../../assets/images/${System?.bankSelected.thumbnail.slice(
+                `../../assets/${System?.bankSelected.thumbnail.slice(
                   1,
                   System.bankSelected.thumbnail.length
                 )}`,
@@ -277,7 +277,7 @@ const BankPage: React.FC<Prop> = ({}) => {
             <img
               src={
                 new URL(
-                  `../../assets/images/${System?.bankSelected.thumbnail.slice(
+                  `../../assets/${System?.bankSelected.thumbnail.slice(
                     1,
                     System.bankSelected.thumbnail.length
                   )}`,

@@ -31,10 +31,7 @@ const BankCard: React.FC<Prop> = ({ bank }) => {
         <img
           src={
             new URL(
-              `../../assets/images/${bank.thumbnail.slice(
-                1,
-                bank.thumbnail.length
-              )}`,
+              `../../assets/${bank.thumbnail.slice(1, bank.thumbnail.length)}`,
               import.meta.url
             ).href
           }

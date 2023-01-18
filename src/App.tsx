@@ -34,6 +34,7 @@ function App() {
     }
 
     System?.setBanks(banks);
+    console.log(banks);
   };
 
   useEffect(() => {
