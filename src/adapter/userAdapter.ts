@@ -98,7 +98,7 @@ export const login = async (username: string, password: string) => {
     localStorage.setItem('token', res.data.token);
     return newUser;
   } catch (err) {
-    console.log('dumbass');
+    return null;
   }
 };
 

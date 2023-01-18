@@ -24,7 +24,7 @@ const HomePage: React.FC<Prop> = ({}) => {
         >
           <Outlet />
         </div>
-        <div className="phone:w-[300px] laptop:w-[400px] phone:mt-4 laptop:mt-0 bg-secondary border-4 border-black rounded-lg p-4 justify-center">
+        <div className="phone:w-[300px] laptop:w-full phone:mt-4 laptop:mt-0 bg-secondary border-4 border-black rounded-lg p-4 justify-center">
           {User?.user.isAdmin ? <AccountsPanel /> : <Info />}
         </div>
 

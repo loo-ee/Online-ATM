@@ -45,7 +45,6 @@ const Login: React.FC<Prop> = ({}) => {
 
   useEffect(() => {
     checkPreviousSession();
-    console.log(User?.user);
 
     if (User?.user.username != '???') {
       if (User?.user.isAdmin) {
@@ -53,7 +52,6 @@ const Login: React.FC<Prop> = ({}) => {
         return;
       }
       navigator(baseUrl + 'feed/');
-      console.log(User!.user.accounts);
     }
   }, [User?.user.accounts]);
 

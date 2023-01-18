@@ -25,7 +25,9 @@ export const deleteAccountRequest = async (username: string, bank: string) => {
         bank: bank,
       },
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log('[Error] Account not deleted');
+  }
 };
 
 export const deleteChangePinRequest = async (
@@ -40,7 +42,7 @@ export const deleteChangePinRequest = async (
       },
     });
   } catch (error) {
-    console.log('dumbass');
+    console.log('[Error] Pin not changed');
   }
 };
 
@@ -48,14 +50,13 @@ export const createAccount = async (account: {}) => {
   try {
     await api.post('create-account/', account);
   } catch (error) {
-    console.log(error);
+    console.log('[Error] Account not created');
   }
 };
 
 export const getPinChangeRequests = async () => {
   try {
     const res = await api.get('change-pin-requests/');
-    console.log(res.data);
     return res.data;
   } catch (error) {
     return [];
