@@ -137,8 +137,6 @@ export const updateAccount = async (account: AccountModel) => {
 export const findAccount = async (accountNumber: number) => {
   try {
     const res = await api.get(`account/${accountNumber}/`);
-    console.log(res.data);
-
     return res.data;
   } catch (error) {
     return false;

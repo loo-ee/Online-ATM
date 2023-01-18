@@ -18,6 +18,7 @@ export const Message: React.FC<Prop> = ({
   const bgColor = {
     BDO: 'bg-blue-900',
     BPI: 'bg-red-900',
+    LANDBANK: 'bg-green-600',
   };
 
   return (
