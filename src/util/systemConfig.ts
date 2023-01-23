@@ -1,4 +1,4 @@
-export const baseUrl = '/Online-ATM/';
+export const baseUrl = 'https://lui523202.github.io/Online-ATM/';
 
 export type BankModel = {
   bankName: string;
