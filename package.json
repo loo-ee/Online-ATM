@@ -1,6 +1,7 @@
 {
   "name": "online-atm-frontend",
   "private": true,
+  "homepage": "https://online-atm.vercel.app",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
