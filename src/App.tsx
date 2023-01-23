@@ -54,9 +54,9 @@ function App() {
               )
             }
           >
-            <Route path={baseUrl + 'feed/'} element={<Feed />}></Route>
+            <Route path="feed/" element={<Feed />}></Route>
 
-            <Route path={baseUrl + 'messages/'} element={<Messages />} />
+            <Route path="messages/" element={<Messages />} />
 
             <Route path="admin/" element={<AdminFeed />}>
               <Route

@@ -1,6 +1,7 @@
 {
   "name": "online-atm-frontend",
   "private": true,
+  "homepage": "https://github.com/lui523202/Online-ATM",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

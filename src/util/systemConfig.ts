@@ -1,4 +1,4 @@
-export const baseUrl = 'https://online-atm.vercel.app/';
+export const baseUrl = '/Online-ATM/';
 
 export type BankModel = {
   bankName: string;
