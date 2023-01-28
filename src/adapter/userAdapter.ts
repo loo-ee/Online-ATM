@@ -8,7 +8,7 @@ import {
 } from '../util/systemConfig';
 
 const api = axios.create({
-  baseURL: 'https://online-atm.up.railway.app/',
+  baseURL: 'https://online-atm-backend.onrender.com/',
   headers: {
     'Content-type': 'application/json',
   },
@@ -105,7 +105,7 @@ export const login = async (username: string, password: string) => {
 export const validateSession = async () => {
   const token = localStorage.getItem('token');
   const authApi = axios.create({
-    baseURL: 'https://online-atm.up.railway.app/',
+    baseURL: 'https://online-atm-backend.onrender.com/',
     headers: {
       Authorization: `Token ${token}`,
     },
