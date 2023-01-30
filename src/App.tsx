@@ -48,11 +48,8 @@ function App() {
       <Route
         path={baseUrl}
         element={
-          User!.user.username != '???' ? (
-            <HomePage />
-          ) : (
-            <Navigate to={baseUrl + 'login/'} />
-          )
+          // User!.user.username != '???' ? (
+          true ? <HomePage /> : <Navigate to={baseUrl + 'login/'} />
         }
       >
         <Route path="feed/" element={<Feed />}></Route>
