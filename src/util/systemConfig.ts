@@ -1,4 +1,4 @@
-export const baseUrl = '/Online-ATM/';
+export const baseUrl = '/';
 
 export type BankModel = {
   bankName: string;
