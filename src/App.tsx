@@ -45,37 +45,34 @@ function App() {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <>
-        <Route
-          path={baseUrl}
-          element={
-            User!.user.username != '???' ? (
-              <HomePage />
-            ) : (
-              <Navigate to={baseUrl + 'login/'} />
-            )
-          }
-        >
-          <Route path="feed/" element={<Feed />}></Route>
+      <Route
+        path={baseUrl}
+        element={
+          User!.user.username != '???' ? (
+            <HomePage />
+          ) : (
+            <Navigate to={baseUrl + 'login/'} />
+          )
+        }
+      >
+        <Route path="feed/" element={<Feed />}></Route>
 
-          <Route path="messages/" element={<Messages />} />
+        <Route path="messages/" element={<Messages />} />
 
-          <Route path="admin/" element={<AdminFeed />}>
-            <Route
-              path="account-creation/"
-              element={<AccountCreationPage />}
-            ></Route>
+        <Route path="admin/" element={<AdminFeed />}>
+          <Route
+            path="account-creation/"
+            element={<AccountCreationPage />}
+          ></Route>
 
-            <Route path="pin-change" element={<ChangePinPage />}></Route>
+          <Route path="pin-change" element={<ChangePinPage />}></Route>
 
-            <Route path="account-edit/" element={<AccountEditPage />}></Route>
-          </Route>
-
-          <Route path="vendor/" element={<BankPage />}></Route>
+          <Route path="account-edit/" element={<AccountEditPage />}></Route>
         </Route>
 
-        <Route path={baseUrl + 'login/'} element={<Login />} />
-      </>
+        <Route path="vendor/" element={<BankPage />}></Route>
+        <Route path={'login/'} element={<Login />} />
+      </Route>
     )
   );
 
