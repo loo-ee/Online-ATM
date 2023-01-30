@@ -3,7 +3,10 @@ import {
   BrowserRouter,
   Navigate,
   Route,
+  RouterProvider,
   Routes,
+  createBrowserRouter,
+  createRoutesFromElements,
   useNavigate,
 } from 'react-router-dom';
 import { getBanks } from './adapter/systemAdapter';
@@ -40,41 +43,48 @@ function App() {
     getBankModels();
   }, []);
 
-  return (
-    <div id="App" className="flex flex-col mb-10 items-center font-primary">
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path={baseUrl}
-            element={
-              User!.user.username != '???' ? (
-                <HomePage />
-              ) : (
-                <Navigate to={baseUrl + 'login/'} />
-              )
-            }
-          >
-            <Route path="feed/" element={<Feed />}></Route>
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <>
+        <Route
+          path={baseUrl}
+          element={
+            User!.user.username != '???' ? (
+              <HomePage />
+            ) : (
+              <Navigate to={baseUrl + 'login/'} />
+            )
+          }
+        >
+          <Route path="feed/" element={<Feed />}></Route>
 
-            <Route path="messages/" element={<Messages />} />
+          <Route path="messages/" element={<Messages />} />
 
-            <Route path="admin/" element={<AdminFeed />}>
-              <Route
-                path="account-creation/"
-                element={<AccountCreationPage />}
-              ></Route>
+          <Route path="admin/" element={<AdminFeed />}>
+            <Route
+              path="account-creation/"
+              element={<AccountCreationPage />}
+            ></Route>
 
-              <Route path="pin-change" element={<ChangePinPage />}></Route>
+            <Route path="pin-change" element={<ChangePinPage />}></Route>
 
-              <Route path="account-edit/" element={<AccountEditPage />}></Route>
-            </Route>
-
-            <Route path="vendor/" element={<BankPage />}></Route>
+            <Route path="account-edit/" element={<AccountEditPage />}></Route>
           </Route>
 
-          <Route path={baseUrl + 'login/'} element={<Login />} />
-        </Routes>
-      </BrowserRouter>
+          <Route path="vendor/" element={<BankPage />}></Route>
+        </Route>
+
+        <Route path={baseUrl + 'login/'} element={<Login />} />
+      </>
+    )
+  );
+
+  return (
+    <div id="App" className="flex flex-col mb-10 items-center font-primary">
+      {/* <BrowserRouter>
+        <Routes></Routes>
+      </BrowserRouter> */}
+      <RouterProvider router={router} />
     </div>
   );
 }
