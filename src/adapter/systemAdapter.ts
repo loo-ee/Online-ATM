@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { BankModel } from '../util/systemConfig';
+import { BankModel, backendUrl } from '../util/systemConfig';
 
 const api = axios.create({
-  baseURL: 'https://online-atm-backend.onrender.com/',
+  baseURL: backendUrl,
   headers: {
     'Content-type': 'application/json',
   },

@@ -5,10 +5,11 @@ import {
   ChangePinRequest,
   MessageModel,
   UserModel,
+  backendUrl,
 } from '../util/systemConfig';
 
 const api = axios.create({
-  baseURL: 'https://online-atm-backend.onrender.com/',
+  baseURL: backendUrl,
   headers: {
     'Content-type': 'application/json',
   },
@@ -105,7 +106,7 @@ export const login = async (username: string, password: string) => {
 export const validateSession = async () => {
   const token = localStorage.getItem('token');
   const authApi = axios.create({
-    baseURL: 'https://online-atm-backend.onrender.com/',
+    baseURL: backendUrl,
     headers: {
       Authorization: `Token ${token}`,
     },
